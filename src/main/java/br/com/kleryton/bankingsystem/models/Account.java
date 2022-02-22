@@ -1,13 +1,15 @@
 package br.com.kleryton.bankingsystem.models;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -31,7 +33,10 @@ public class Account implements Serializable {
 	private Integer verificationDigital;
 	@Column(nullable = false, unique = true)
 	private String register_id;
-	@Column(nullable = false)
-	private Cards card;
+	@ManyToOne
+	@JoinColumn(name="card_id")
+	private List<Card> cards;
+	
+	
 
 }
