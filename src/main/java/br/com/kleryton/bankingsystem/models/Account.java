@@ -25,14 +25,19 @@ public class Account implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nameOwner;
+	
 	@Column(nullable = false, unique = true)
 	private Integer agencyCode;
+	
 	@Column(nullable = false, unique = true)
 	private Integer accountCode;
+	
 	@Column(nullable = false, length = 1)
 	private Integer verificationDigital;
+	
 	@Column(nullable = false, unique = true)
 	private String register_id;
+	
 	@ManyToOne
 	@JoinColumn(name="card_id")
 	private List<Card> cards;

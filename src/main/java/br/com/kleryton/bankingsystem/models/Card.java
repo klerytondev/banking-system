@@ -20,17 +20,23 @@ public class Card {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(nullable = false, unique = true)
 	private String nameCard;
-	@Column(nullable = false, unique = true)
+	
+	@Column(nullable = false)
 	private CardFlag flag;
+	
+	@Column(nullable = false)
+	private TypeCard typeCard;
+	
 	@Column(nullable = false, unique = true)
-	private String typeCard;
-	@Column(nullable = false, unique = true)
-	private String number;
-	@Column(nullable = false, unique = true)
-	private String digitCode;
-	@Column(nullable = false, unique = true)
+	private Integer number;
+	
+	@Column(nullable = false)
+	private Integer digitCode;
+	
+	@Column(nullable = false)
 	private double limitBalance;
 	
 	
