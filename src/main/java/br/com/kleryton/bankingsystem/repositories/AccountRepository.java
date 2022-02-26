@@ -1,12 +1,15 @@
 package br.com.kleryton.bankingsystem.repositories;
 
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import br.com.kleryton.bankingsystem.models.Account;
+import br.com.kleryton.bankingsystem.models.AccountModel;
 
-public interface AccountRepository {
-	public interface IAcocountRepository extends JpaRepository<Account, Long> {
-
-	}
+@Repository
+public interface AccountRepository extends JpaRepository<AccountModel, UUID> {
+	
+	boolean existsByRegisterId(String register_id);
 
 }

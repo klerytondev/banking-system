@@ -1,29 +1,28 @@
 package br.com.kleryton.bankingsystem.models;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 
 @Table(name = "TB_ACCOUNT")
-public class Account implements Serializable {
+public class AccountModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private UUID id;
+
 	@Column(nullable = false, unique = true)
 	private String nameOwner;
 
@@ -39,12 +38,27 @@ public class Account implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String register_id;
 
-	@ManyToOne
-	@JoinColumn(name = "card_id")
-	private Set<Card> cards = new HashSet<>();
+//	@OneToMany(mappedBy = "cardModel")
+//	private Set<CardModel> cards;
 
-	public Long getId() {
+	public AccountModel() {
+	}
+
+	public AccountModel(AccountModel account) {
+		this.nameOwner = getNameOwner();
+		this.agencyCode = getAgencyCode();
+		this.accountCode = getAgencyCode();
+		this.verificationDigital = getVerificationDigital();
+		this.register_id = getRegister_id();
+//		this.cards = getCards();
+	}
+
+	public UUID getId() {
 		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	public String getNameOwner() {
@@ -87,22 +101,22 @@ public class Account implements Serializable {
 		this.register_id = register_id;
 	}
 
-	public Set<Card> getCards() {
-		return cards;
-	}
-
-	public void setCards(Card cards) {
-		this.cards.add(cards);
-	}
+//	public Set<CardModel> getCards() {
+//		return cards;
+//	}
+//
+//	public void setCards(CardModel cards) {
+//		this.cards.add(cards);
+//	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(accountCode, agencyCode, cards, id, nameOwner, register_id, verificationDigital);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(accountCode, agencyCode, cards, id, nameOwner, register_id, verificationDigital);
+//	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -112,9 +126,9 @@ public class Account implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Account other = (Account) obj;
+		AccountModel other = (AccountModel) obj;
 		return Objects.equals(accountCode, other.accountCode) && Objects.equals(agencyCode, other.agencyCode)
-				&& Objects.equals(cards, other.cards) && Objects.equals(id, other.id)
+//				&& Objects.equals(cards, other.cards) && Objects.equals(id, other.id)
 				&& Objects.equals(nameOwner, other.nameOwner) && Objects.equals(register_id, other.register_id)
 				&& Objects.equals(verificationDigital, other.verificationDigital);
 	}

@@ -1,12 +1,17 @@
 package br.com.kleryton.bankingsystem.models;
 
+import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;
@@ -15,11 +20,12 @@ import br.com.kleryton.bankingsystem.models.enums.CardFlag;
 
 @Table(name = "TB_CARD")
 
-public class Card {
+public class CardModel implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private UUID id;
 
 	@Column(nullable = false, unique = true)
 	private String nameCard;
@@ -28,7 +34,7 @@ public class Card {
 	private CardFlag flag;
 
 	@Column(nullable = false)
-	private TypeCard typeCard;
+	private TypeCardModel typeCard;
 
 	@Column(nullable = false, unique = true)
 	private Integer number;
@@ -39,7 +45,30 @@ public class Card {
 	@Column(nullable = false)
 	private double limitBalance;
 
-	public Long getId() {
+//	@ManyToOne
+//	@JoinColumn(name= "fk_tb_accountModel", nullable = false)
+	private AccountModel accountModel;
+	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name= "typeCard_id")
+	private TypeCardModel tyCard;
+	
+	public CardModel() {
+	}
+	
+	public CardModel(String nameCard, CardFlag flag, TypeCardModel typeCard, Integer number, Integer digitCode,
+			double limitBalance, AccountModel account, TypeCardModel tyCard) {
+		this.nameCard = nameCard;
+		this.flag = flag;
+		this.typeCard = typeCard;
+		this.number = number;
+		this.digitCode = digitCode;
+		this.limitBalance = limitBalance;
+		this.accountModel = account;
+		this.tyCard = tyCard;
+	}
+
+	public UUID getId() {
 		return id;
 	}
 
@@ -59,11 +88,11 @@ public class Card {
 		this.flag = flag;
 	}
 
-	public TypeCard getTypeCard() {
+	public TypeCardModel getTypeCard() {
 		return typeCard;
 	}
 
-	public void setTypeCard(TypeCard typeCard) {
+	public void setTypeCard(TypeCardModel typeCard) {
 		this.typeCard = typeCard;
 	}
 
@@ -90,6 +119,23 @@ public class Card {
 	public void setLimitBalance(double limitBalance) {
 		this.limitBalance = limitBalance;
 	}
+	
+	
+	public AccountModel getAccount() {
+		return accountModel;
+	}
+
+	public void setAccount(AccountModel account) {
+		this.accountModel = account;
+	}
+
+	public TypeCardModel getTyCard() {
+		return tyCard;
+	}
+
+	public void setTyCard(TypeCardModel tyCard) {
+		this.tyCard = tyCard;
+	}
 
 	@Override
 	public int hashCode() {
@@ -104,13 +150,11 @@ public class Card {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Card other = (Card) obj;
+		CardModel other = (CardModel) obj;
 		return Objects.equals(digitCode, other.digitCode) && flag == other.flag && Objects.equals(id, other.id)
 				&& Double.doubleToLongBits(limitBalance) == Double.doubleToLongBits(other.limitBalance)
 				&& Objects.equals(nameCard, other.nameCard) && Objects.equals(number, other.number)
 				&& Objects.equals(typeCard, other.typeCard);
 	}
 	
-	
-
 }

@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -12,7 +11,8 @@ import javax.validation.constraints.PositiveOrZero;
 
 import org.hibernate.validator.constraints.Length;
 
-import br.com.kleryton.bankingsystem.models.TypeCard;
+import br.com.kleryton.bankingsystem.models.CardModel;
+import br.com.kleryton.bankingsystem.models.TypeCardModel;
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;
 
 public class CardDto {
@@ -20,33 +20,28 @@ public class CardDto {
 	@NotEmpty(message = "{campo.nameCard.obrigatorio}")
 	@Length(max = 128, message = "{campo.nameCard.caracteres}")
 	@NotNull(message = "{campo.nameCard.nulo}")
-	@NotBlank
 	@Column(nullable = false, unique = true)
 	private String nameCard;
 
 	@NotEmpty(message = "{campo.flag.obrigatorio}")
 	@NotNull(message = "{campo.flag.nulo}")
-	@NotBlank
 	@Column(nullable = false)
 	private CardFlag flag;
 
 	@NotEmpty(message = "{campo.typeCard.obrigatorio}")
 	@Length(max = 128, message = "{campo.typeCard.caracteres}")
 	@NotNull(message = "{campo.typeCard.nulo}")
-	@NotBlank
 	@Column(nullable = false)
-	private TypeCard typeCard;
+	private TypeCardModel typeCard;
 
 	@NotEmpty(message = "{campo.number.obrigatorio}")
 	@NotNull(message = "{campo.number.nulo}")
-	@NotBlank
 	@Pattern(regexp = "[0-9]{4}[\\.][0-9]{4}[\\.][0-9]{4}[\\.][0-9]{4}", message = "{campo.number.invalido}")
 	@Column(nullable = false, unique = true)
 	private Integer number;
 
 	@NotEmpty(message = "{campo.digitCode.obrigatorio}")
 	@NotNull(message = "{campo.digitCode.nulo}")
-	@NotBlank
 	@Column(nullable = false)
 	@Pattern(regexp = "[0-9]{1}", message = "{campo.digit.obrigatorio}")
 	private Integer digitCode;
@@ -57,6 +52,19 @@ public class CardDto {
 	@PositiveOrZero(message = "{campo.positiveorzero.postivo}")
 	@Column(nullable = false)
 	private double limitBalance;
+
+	public CardDto() {
+	}
+
+	public CardDto(CardModel card) {
+		super();
+		this.nameCard = getNameCard();
+		this.flag = getFlag();
+		this.typeCard = getTypeCard();
+		this.number = getNumber();
+		this.digitCode = getDigitCode();
+		this.limitBalance = getLimitBalance();
+	}
 
 	public String getNameCard() {
 		return nameCard;
@@ -74,11 +82,11 @@ public class CardDto {
 		this.flag = flag;
 	}
 
-	public TypeCard getTypeCard() {
+	public TypeCardModel getTypeCard() {
 		return typeCard;
 	}
 
-	public void setTypeCard(TypeCard typeCard) {
+	public void setTypeCard(TypeCardModel typeCard) {
 		this.typeCard = typeCard;
 	}
 
