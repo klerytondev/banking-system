@@ -2,7 +2,6 @@ package br.com.kleryton.bankingsystem.models;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -10,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -36,10 +34,7 @@ public class AccountModel implements Serializable {
 	private Integer verificationDigital;
 
 	@Column(nullable = false, unique = true)
-	private String register_id;
-
-//	@OneToMany(mappedBy = "cardModel")
-//	private Set<CardModel> cards;
+	private String registerId;
 
 	public AccountModel() {
 	}
@@ -49,8 +44,7 @@ public class AccountModel implements Serializable {
 		this.agencyCode = getAgencyCode();
 		this.accountCode = getAgencyCode();
 		this.verificationDigital = getVerificationDigital();
-		this.register_id = getRegister_id();
-//		this.cards = getCards();
+		this.registerId = getRegisterId();
 	}
 
 	public UUID getId() {
@@ -93,30 +87,22 @@ public class AccountModel implements Serializable {
 		this.verificationDigital = verificationDigital;
 	}
 
-	public String getRegister_id() {
-		return register_id;
+	public String getRegisterId() {
+		return registerId;
 	}
 
-	public void setRegister_id(String register_id) {
-		this.register_id = register_id;
+	public void setRegisterId(String register_id) {
+		this.registerId = register_id;
 	}
-
-//	public Set<CardModel> getCards() {
-//		return cards;
-//	}
-//
-//	public void setCards(CardModel cards) {
-//		this.cards.add(cards);
-//	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-//	@Override
-//	public int hashCode() {
-//		return Objects.hash(accountCode, agencyCode, cards, id, nameOwner, register_id, verificationDigital);
-//	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(accountCode, agencyCode, id, nameOwner, registerId, verificationDigital);
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -128,8 +114,8 @@ public class AccountModel implements Serializable {
 			return false;
 		AccountModel other = (AccountModel) obj;
 		return Objects.equals(accountCode, other.accountCode) && Objects.equals(agencyCode, other.agencyCode)
-//				&& Objects.equals(cards, other.cards) && Objects.equals(id, other.id)
-				&& Objects.equals(nameOwner, other.nameOwner) && Objects.equals(register_id, other.register_id)
+				&& Objects.equals(id, other.id) && Objects.equals(nameOwner, other.nameOwner)
+				&& Objects.equals(registerId, other.registerId)
 				&& Objects.equals(verificationDigital, other.verificationDigital);
 	}
 

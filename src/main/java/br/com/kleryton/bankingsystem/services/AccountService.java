@@ -7,7 +7,6 @@ import java.util.UUID;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import br.com.kleryton.bankingsystem.models.AccountModel;
@@ -19,8 +18,7 @@ public class AccountService {
 	@Autowired
 	AccountRepository accountRepository;
 
-
-//	@Transactional
+	@Transactional
 	public AccountModel save(AccountModel account) {
 		return accountRepository.save(account);
 	}
@@ -33,7 +31,7 @@ public class AccountService {
 		return accountRepository.findById(id);
 	}
 
-//	@Transactional
+	@Transactional
 	public void delete(AccountModel account) {
 		accountRepository.delete(account);
 	}

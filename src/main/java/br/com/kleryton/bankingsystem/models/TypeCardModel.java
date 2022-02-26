@@ -1,17 +1,15 @@
 package br.com.kleryton.bankingsystem.models;
 
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import br.com.kleryton.bankingsystem.models.enums.TypeCardsEnum;
 
 @Entity
 
@@ -23,57 +21,35 @@ public class TypeCardModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 
-	@Column(nullable = false)
-	private TypeCardModel name;
-
-//	@OneToOne(mappedBy = "tyCard", cascade = CascadeType.ALL)
-	
-	private CardModel card;
+	private TypeCardsEnum name;
 
 	public TypeCardModel() {
 
 	}
 
-	public TypeCardModel(TypeCardModel name, CardModel card) {
+	public TypeCardModel(TypeCardsEnum name) {
+		super();
 		this.name = name;
-		this.card = card;
+	}
+
+	public TypeCardsEnum getName() {
+		return name;
+	}
+
+	public void setName(TypeCardsEnum name) {
+		this.name = name;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public UUID getId() {
 		return id;
 	}
 
-	public TypeCardModel getName() {
-		return name;
-	}
-
-	public void setName(TypeCardModel name) {
-		this.name = name;
-	}
-
-	public CardModel getCard() {
-		return card;
-	}
-
-	public void setCard(CardModel card) {
-		this.card = card;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TypeCardModel other = (TypeCardModel) obj;
-		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 }

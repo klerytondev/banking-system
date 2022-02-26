@@ -36,7 +36,7 @@ public class AccountDto {
 	@CPF(message = "{campo.OwnerCpf.invalido}")
 	@NotNull(message = "{campo.OwnerCpf.nulo}")
 	@NotEmpty(message = "{campo.OwnerCpf.obrigatorio}")
-	private String register_id;
+	private String registerId;
 
 	public AccountDto() {
 	}
@@ -52,7 +52,7 @@ public class AccountDto {
 		this.agencyCode = agencyCode;
 		this.accountCode = accountCode;
 		this.verificationDigital = verificationDigital;
-		this.register_id = register_id;
+		this.registerId = register_id;
 	}
 
 	public String getNameOwner() {
@@ -88,16 +88,16 @@ public class AccountDto {
 	}
 
 	public String getRegister_id() {
-		return register_id;
+		return registerId;
 	}
 
 	public void setRegister_id(String register_id) {
-		this.register_id = register_id;
+		this.registerId = register_id;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(accountCode, agencyCode, nameOwner, register_id, verificationDigital);
+		return Objects.hash(accountCode, agencyCode, nameOwner, registerId, verificationDigital);
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class AccountDto {
 			return false;
 		AccountDto other = (AccountDto) obj;
 		return Objects.equals(accountCode, other.accountCode) && Objects.equals(agencyCode, other.agencyCode)
-				&& Objects.equals(nameOwner, other.nameOwner) && Objects.equals(register_id, other.register_id)
+				&& Objects.equals(nameOwner, other.nameOwner) && Objects.equals(registerId, other.registerId)
 				&& Objects.equals(verificationDigital, other.verificationDigital);
 	}
 

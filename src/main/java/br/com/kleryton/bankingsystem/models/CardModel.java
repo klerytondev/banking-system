@@ -20,7 +20,7 @@ import br.com.kleryton.bankingsystem.models.enums.CardFlag;
 
 @Table(name = "TB_CARD")
 
-public class CardModel implements Serializable{
+public class CardModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -33,9 +33,6 @@ public class CardModel implements Serializable{
 	@Column(nullable = false)
 	private CardFlag flag;
 
-	@Column(nullable = false)
-	private TypeCardModel typeCard;
-
 	@Column(nullable = false, unique = true)
 	private Integer number;
 
@@ -45,22 +42,21 @@ public class CardModel implements Serializable{
 	@Column(nullable = false)
 	private double limitBalance;
 
-//	@ManyToOne
-//	@JoinColumn(name= "fk_tb_accountModel", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "AccountModel_id")
 	private AccountModel accountModel;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name= "typeCard_id")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "typeCard_id")
 	private TypeCardModel tyCard;
-	
+
 	public CardModel() {
 	}
-	
-	public CardModel(String nameCard, CardFlag flag, TypeCardModel typeCard, Integer number, Integer digitCode,
-			double limitBalance, AccountModel account, TypeCardModel tyCard) {
+
+	public CardModel(String nameCard, CardFlag flag, Integer number, Integer digitCode, double limitBalance,
+			AccountModel account, TypeCardModel tyCard) {
 		this.nameCard = nameCard;
 		this.flag = flag;
-		this.typeCard = typeCard;
 		this.number = number;
 		this.digitCode = digitCode;
 		this.limitBalance = limitBalance;
@@ -88,14 +84,6 @@ public class CardModel implements Serializable{
 		this.flag = flag;
 	}
 
-	public TypeCardModel getTypeCard() {
-		return typeCard;
-	}
-
-	public void setTypeCard(TypeCardModel typeCard) {
-		this.typeCard = typeCard;
-	}
-
 	public Integer getNumber() {
 		return number;
 	}
@@ -119,8 +107,7 @@ public class CardModel implements Serializable{
 	public void setLimitBalance(double limitBalance) {
 		this.limitBalance = limitBalance;
 	}
-	
-	
+
 	public AccountModel getAccount() {
 		return accountModel;
 	}
@@ -139,7 +126,7 @@ public class CardModel implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(digitCode, flag, id, limitBalance, nameCard, number, typeCard);
+		return Objects.hash(digitCode, flag, id, limitBalance, nameCard, number);
 	}
 
 	@Override
@@ -153,8 +140,7 @@ public class CardModel implements Serializable{
 		CardModel other = (CardModel) obj;
 		return Objects.equals(digitCode, other.digitCode) && flag == other.flag && Objects.equals(id, other.id)
 				&& Double.doubleToLongBits(limitBalance) == Double.doubleToLongBits(other.limitBalance)
-				&& Objects.equals(nameCard, other.nameCard) && Objects.equals(number, other.number)
-				&& Objects.equals(typeCard, other.typeCard);
+				&& Objects.equals(nameCard, other.nameCard) && Objects.equals(number, other.number);
 	}
-	
+
 }
