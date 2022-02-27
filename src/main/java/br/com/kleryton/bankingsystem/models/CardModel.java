@@ -23,8 +23,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, 
-property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class)
 @Table(name = "TB_CARD")
 
 public class CardModel implements Serializable {
@@ -49,10 +48,10 @@ public class CardModel implements Serializable {
 	@Column(nullable = false)
 	private double limitBalance;
 
-	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "accountModel_id")
-	private AccountModel accountModel;
+//	@JsonBackReference
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "accountModel_id")
+//	private AccountModel accountModel;
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "type_card_model_id")
@@ -68,7 +67,7 @@ public class CardModel implements Serializable {
 		this.number = number;
 		this.digitCode = digitCode;
 		this.limitBalance = limitBalance;
-		this.accountModel = account;
+//		this.accountModel = account;
 		this.typeCardModel = tyCard;
 	}
 
@@ -116,13 +115,13 @@ public class CardModel implements Serializable {
 		this.limitBalance = limitBalance;
 	}
 
-	public AccountModel getAccount() {
-		return accountModel;
-	}
-
-	public void setAccount(AccountModel account) {
-		this.accountModel = account;
-	}
+//	public AccountModel getAccount() {
+//		return accountModel;
+//	}
+//
+//	public void setAccount(AccountModel account) {
+//		this.accountModel = account;
+//	}
 
 	public TypeCardModel getTyCard() {
 		return typeCardModel;

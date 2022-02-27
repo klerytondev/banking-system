@@ -33,13 +33,12 @@ public class AccountController {
 
 	@PostMapping
 	public ResponseEntity<Object> saveAccount(@RequestBody @Valid AccountDto accountDto) {
-		if (accountService.existsByRegisterId(accountDto.getRegister_id())) {
+		if (accountService.existsByRegisterId(accountDto.getRegisterId())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Register id is already in use!");
 		}
 
-		var accountModel = new AccountModel();
+		AccountModel accountModel = new AccountModel();
 		BeanUtils.copyProperties(accountDto, accountModel);
-		System.out.println("IMPRESSÃO>>>>>>>>>> " + accountModel);
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountService.save(accountModel));
 		
 	}

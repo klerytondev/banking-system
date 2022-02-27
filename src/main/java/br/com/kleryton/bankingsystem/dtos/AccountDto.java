@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import br.com.kleryton.bankingsystem.models.AccountModel;
 
@@ -34,13 +35,14 @@ public class AccountDto {
 	@Column(nullable = false, unique = true)
 	private String verificationDigital;
 
-
+	@CPF(message = "{campo.accountcpf.invalido}")
 	private String registerId;
 
 	public AccountDto() {
 	}
 
 	public AccountDto(AccountModel accountModel) {
+		super();
 		this.nameOwner = accountModel.getNameOwner();
 		this.agencyCode = accountModel.getAgencyCode();
 		this.accountCode = accountModel.getAccountCode();
@@ -80,12 +82,12 @@ public class AccountDto {
 		this.verificationDigital = verificationDigital;
 	}
 
-	public String getRegister_id() {
+	public String getRegisterId() {
 		return registerId;
 	}
 
-	public void setRegister_id(String register_id) {
-		this.registerId = register_id;
+	public void setRegisterId(String registerId) {
+		this.registerId = registerId;
 	}
 
 	@Override

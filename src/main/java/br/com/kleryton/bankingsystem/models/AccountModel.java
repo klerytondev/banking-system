@@ -2,7 +2,6 @@ package br.com.kleryton.bankingsystem.models;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -16,8 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, 
-property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class)
 
 @Table(name = "TB_ACCOUNT")
 public class AccountModel implements Serializable {
@@ -28,7 +26,7 @@ public class AccountModel implements Serializable {
 	private UUID id;
 
 	@Column(nullable = false, unique = true)
-	private String nameOwner;
+	private String nameOwner = "lajdlajdoajda";
 
 	@Column(nullable = false, unique = true)
 	private String agencyCode;
@@ -50,7 +48,7 @@ public class AccountModel implements Serializable {
 	}
 
 	public AccountModel(String nameOwner, String agencyCode, String accountCode, String verificationDigital,
-			String registerId, Set<CardModel> card) {
+			String registerId) {
 		this.nameOwner = nameOwner;
 		this.agencyCode = agencyCode;
 		this.accountCode = accountCode;
