@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,12 +13,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;
 
 @Entity
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, 
+property = "id")
 @Table(name = "TB_CARD")
 
 public class CardModel implements Serializable {
@@ -42,13 +49,14 @@ public class CardModel implements Serializable {
 	@Column(nullable = false)
 	private double limitBalance;
 
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "AccountModel_id")
+	@JoinColumn(name = "accountModel_id")
 	private AccountModel accountModel;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "typeCard_id")
-	private TypeCardModel tyCard;
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "type_card_model_id")
+	private TypeCardModel typeCardModel;
 
 	public CardModel() {
 	}
@@ -61,7 +69,7 @@ public class CardModel implements Serializable {
 		this.digitCode = digitCode;
 		this.limitBalance = limitBalance;
 		this.accountModel = account;
-		this.tyCard = tyCard;
+		this.typeCardModel = tyCard;
 	}
 
 	public UUID getId() {
@@ -117,11 +125,11 @@ public class CardModel implements Serializable {
 	}
 
 	public TypeCardModel getTyCard() {
-		return tyCard;
+		return typeCardModel;
 	}
 
 	public void setTyCard(TypeCardModel tyCard) {
-		this.tyCard = tyCard;
+		this.typeCardModel = tyCard;
 	}
 
 	@Override

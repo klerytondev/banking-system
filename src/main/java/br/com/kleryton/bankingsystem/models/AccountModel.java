@@ -2,17 +2,25 @@ package br.com.kleryton.bankingsystem.models;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, 
+property = "id")
 @Table(name = "TB_ACCOUNT")
 public class AccountModel implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -36,15 +44,21 @@ public class AccountModel implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String registerId;
 
+	@JsonManagedReference
+	@OneToMany(mappedBy = "accountModel", cascade = CascadeType.ALL)
+	private Set<CardModel> cardModel;
+
 	public AccountModel() {
 	}
 
-	public AccountModel(AccountModel account) {
-		this.nameOwner = getNameOwner();
-		this.agencyCode = getAgencyCode();
-		this.accountCode = getAgencyCode();
-		this.verificationDigital = getVerificationDigital();
-		this.registerId = getRegisterId();
+	public AccountModel(String nameOwner, Integer agencyCode, Integer accountCode, Integer verificationDigital,
+			String registerId, Set<CardModel> card) {
+		this.nameOwner = nameOwner;
+		this.agencyCode = agencyCode;
+		this.accountCode = accountCode;
+		this.verificationDigital = verificationDigital;
+		this.registerId = registerId;
+		cardModel = card;
 	}
 
 	public UUID getId() {
@@ -97,6 +111,14 @@ public class AccountModel implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Set<CardModel> getCard() {
+		return cardModel;
+	}
+
+	public void setCard(Set<CardModel> card) {
+		this.cardModel = card;
 	}
 
 	@Override

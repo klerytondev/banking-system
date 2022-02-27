@@ -12,7 +12,6 @@ import javax.persistence.Table;
 import br.com.kleryton.bankingsystem.models.enums.TypeCardsEnum;
 
 @Entity
-
 @Table(name = "TB_TYPE_CARD")
 
 public class TypeCardModel implements Serializable {
@@ -21,29 +20,25 @@ public class TypeCardModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 
-	private TypeCardsEnum name;
+	private TypeCardsEnum typeCardsEnum;
 
-	public TypeCardModel() {
+	public  TypeCardModel() {
 
 	}
 
 	public TypeCardModel(TypeCardsEnum name) {
-		super();
-		this.name = name;
+		this.typeCardsEnum = name;
 	}
 
 	public TypeCardsEnum getName() {
-		return name;
+		return typeCardsEnum;
 	}
 
 	public void setName(TypeCardsEnum name) {
-		this.name = name;
+		this.typeCardsEnum = name;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
+	
 	public UUID getId() {
 		return id;
 	}
