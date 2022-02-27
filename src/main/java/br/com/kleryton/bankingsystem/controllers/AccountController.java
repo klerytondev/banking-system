@@ -39,7 +39,9 @@ public class AccountController {
 
 		var accountModel = new AccountModel();
 		BeanUtils.copyProperties(accountDto, accountModel);
+		System.out.println("IMPRESSÃO>>>>>>>>>> " + accountModel);
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountService.save(accountModel));
+		
 	}
 
 	@GetMapping

@@ -7,7 +7,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CPF;
+
+import br.com.kleryton.bankingsystem.models.AccountModel;
 
 public class AccountDto {
 
@@ -19,40 +20,32 @@ public class AccountDto {
 	@NotEmpty(message = "{campo.agencyCode.obrigatorio}")
 	@Length(max = 4, message = "{campo.agencyCode.digitos}")
 	@NotNull(message = "{campo.agencyCode.nulo}")
-	private Integer agencyCode;
+	private String agencyCode;
 
 	@NotEmpty(message = "{campo.accountCode.obrigatorio}")
 	@Length(max = 8, message = "{campo.accountCode.digitos}")
 	@NotNull(message = "{campo.accountCode.nulo}")
 	@Column(nullable = false, unique = true)
-	private Integer accountCode;
+	private String accountCode;
 
 	@NotEmpty(message = "{campo.verificationDigital.obrigatorio}")
 	@Length(max = 1, message = "{campo.verificationDigital.digitos}")
 	@NotNull(message = "{campo.verificationDigital.nulo}")
 	@Column(nullable = false, unique = true)
-	private Integer verificationDigital;
+	private String verificationDigital;
 
-	@CPF(message = "{campo.OwnerCpf.invalido}")
-	@NotNull(message = "{campo.OwnerCpf.nulo}")
-	@NotEmpty(message = "{campo.OwnerCpf.obrigatorio}")
+
 	private String registerId;
 
 	public AccountDto() {
 	}
 
-	public AccountDto(
-			@NotEmpty(message = "{campo.nameOwner.obrigatorio}") @Length(max = 50, message = "{campo.nameOwner.caracteres}") @NotNull(message = "{campo.nameOwner.nulo}") String nameOwner,
-			@NotEmpty(message = "{campo.agencyCode.obrigatorio}") @Length(max = 4, message = "{campo.agencyCode.digitos}") @NotNull(message = "{campo.agencyCode.nulo}") Integer agencyCode,
-			@NotEmpty(message = "{campo.accountCode.obrigatorio}") @Length(max = 8, message = "{campo.accountCode.digitos}") @NotNull(message = "{campo.accountCode.nulo}") Integer accountCode,
-			@NotEmpty(message = "{campo.verificationDigital.obrigatorio}") @Length(max = 1, message = "{campo.verificationDigital.digitos}") @NotNull(message = "{campo.verificationDigital.nulo}") Integer verificationDigital,
-			@CPF(message = "{campo.OwnerCpf.invalido}") @NotNull(message = "{campo.OwnerCpf.nulo}") @NotEmpty(message = "{campo.OwnerCpf.obrigatorio}") String register_id) {
-		super();
-		this.nameOwner = nameOwner;
-		this.agencyCode = agencyCode;
-		this.accountCode = accountCode;
-		this.verificationDigital = verificationDigital;
-		this.registerId = register_id;
+	public AccountDto(AccountModel accountModel) {
+		this.nameOwner = accountModel.getNameOwner();
+		this.agencyCode = accountModel.getAgencyCode();
+		this.accountCode = accountModel.getAccountCode();
+		this.verificationDigital = accountModel.getVerificationDigital();
+		this.registerId = accountModel.getRegisterId();
 	}
 
 	public String getNameOwner() {
@@ -63,27 +56,27 @@ public class AccountDto {
 		this.nameOwner = nameOwner;
 	}
 
-	public Integer getAgencyCode() {
+	public String getAgencyCode() {
 		return agencyCode;
 	}
 
-	public void setAgencyCode(Integer agencyCode) {
+	public void setAgencyCode(String agencyCode) {
 		this.agencyCode = agencyCode;
 	}
 
-	public Integer getAccountCode() {
+	public String getAccountCode() {
 		return accountCode;
 	}
 
-	public void setAccountCode(Integer accountCode) {
+	public void setAccountCode(String accountCode) {
 		this.accountCode = accountCode;
 	}
 
-	public Integer getVerificationDigital() {
+	public String getVerificationDigital() {
 		return verificationDigital;
 	}
 
-	public void setVerificationDigital(Integer verificationDigital) {
+	public void setVerificationDigital(String verificationDigital) {
 		this.verificationDigital = verificationDigital;
 	}
 
