@@ -48,10 +48,10 @@ public class CardModel implements Serializable {
 	@Column(nullable = false)
 	private double limitBalance;
 
-//	@JsonBackReference
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "accountModel_id")
-//	private AccountModel accountModel;
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "accountModel_id")
+	private AccountModel accountModel;
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "type_card_model_id")

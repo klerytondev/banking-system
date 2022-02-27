@@ -10,6 +10,6 @@ import br.com.kleryton.bankingsystem.models.AccountModel;
 @Repository
 public interface AccountRepository extends JpaRepository<AccountModel, UUID> {
 	
-	boolean existsByRegisterId(String register_id);
+	boolean existsByRegisterId(String registerId);
 
 }
