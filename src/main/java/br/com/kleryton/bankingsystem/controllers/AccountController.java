@@ -2,7 +2,6 @@ package br.com.kleryton.bankingsystem.controllers;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -39,7 +38,7 @@ public class AccountController {
 
 		AccountModel accountModel = new AccountModel();
 		BeanUtils.copyProperties(accountDto, accountModel);
-		return ResponseEntity.status(HttpStatus.CREATED).body(accountService.save(accountModel));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountDto(accountService.save(accountModel)));
 		
 	}
 
@@ -49,16 +48,16 @@ public class AccountController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Object> getOneAccountModel(@PathVariable(value = "id") UUID id) {
+	public ResponseEntity<Object> getOneAccountModel(@PathVariable(value = "id") Long id) {
 		Optional<AccountModel> accountModelOptional = accountService.findById(id);
 		if (!accountModelOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found.");
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(accountModelOptional.get());
+		return ResponseEntity.status(HttpStatus.OK).body(new AccountDto(accountModelOptional.get()));
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteAccountModel(@PathVariable(value = "id") UUID id) {
+	public ResponseEntity<Object> deleteAccountModel(@PathVariable(value = "id") Long id) {
 		Optional<AccountModel> accountModelOptional = accountService.findById(id);
 		if (!accountModelOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found.");
@@ -68,7 +67,7 @@ public class AccountController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Object> updateAccountModel(@PathVariable(value = "id") UUID id,
+	public ResponseEntity<Object> updateAccountModel(@PathVariable(value = "id") Long id,
 			@RequestBody @Valid AccountDto accountDto) {
 		Optional<AccountModel> accountModelOptional = accountService.findById(id);
 		if (!accountModelOptional.isPresent()) {

@@ -2,7 +2,6 @@ package br.com.kleryton.bankingsystem.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -27,7 +26,7 @@ public class AccountService {
 		return accountRepository.findAll();
 	}
 
-	public Optional<AccountModel> findById(UUID id) {
+	public Optional<AccountModel> findById(Long id) {
 		return accountRepository.findById(id);
 	}
 

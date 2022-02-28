@@ -1,7 +1,6 @@
 package br.com.kleryton.bankingsystem.models;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +16,8 @@ import br.com.kleryton.bankingsystem.models.enums.TypeCardsEnum;
 public class TypeCardModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	private TypeCardsEnum typeCardsEnum;
 
@@ -39,11 +38,11 @@ public class TypeCardModel implements Serializable {
 	}
 
 	
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -2,20 +2,15 @@ package br.com.kleryton.bankingsystem.models;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -26,13 +21,13 @@ public class AccountModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@Column(nullable = false, unique = true)
 	private String nameOwner;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String agencyCode;
 
 	@Column(nullable = false, unique = true)
@@ -44,9 +39,9 @@ public class AccountModel implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String registerId;
 
-	@JsonManagedReference
-	@OneToMany(mappedBy = "accountModel", cascade = CascadeType.ALL)
-	private Set<CardModel> cardModel;
+//	@JsonManagedReference
+//	@OneToMany(mappedBy = "accountModel", cascade = CascadeType.ALL)
+//	private Set<CardModel> cardModel;
 
 	public AccountModel() {
 	}
@@ -61,11 +56,11 @@ public class AccountModel implements Serializable {
 //		cardModel = card;
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

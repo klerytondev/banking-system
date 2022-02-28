@@ -2,21 +2,14 @@ package br.com.kleryton.bankingsystem.models;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -30,8 +23,8 @@ public class CardModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@Column(nullable = false, unique = true)
 	private String nameCard;
@@ -48,14 +41,14 @@ public class CardModel implements Serializable {
 	@Column(nullable = false)
 	private double limitBalance;
 
-	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "accountModel_id")
-	private AccountModel accountModel;
+//	@JsonBackReference
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "accountModel_id")
+//	private AccountModel accountModel;
 
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "type_card_model_id")
-	private TypeCardModel typeCardModel;
+//	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+//	@JoinColumn(name = "type_card_model_id")
+//	private TypeCardModel typeCardModel;
 
 	public CardModel() {
 	}
@@ -68,11 +61,15 @@ public class CardModel implements Serializable {
 		this.digitCode = digitCode;
 		this.limitBalance = limitBalance;
 //		this.accountModel = account;
-		this.typeCardModel = tyCard;
+//		this.typeCardModel = tyCard;
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNameCard() {
@@ -123,13 +120,13 @@ public class CardModel implements Serializable {
 //		this.accountModel = account;
 //	}
 
-	public TypeCardModel getTyCard() {
-		return typeCardModel;
-	}
-
-	public void setTyCard(TypeCardModel tyCard) {
-		this.typeCardModel = tyCard;
-	}
+//	public TypeCardModel getTyCard() {
+//		return typeCardModel;
+//	}
+//
+//	public void setTyCard(TypeCardModel tyCard) {
+//		this.typeCardModel = tyCard;
+//	}
 
 	@Override
 	public int hashCode() {

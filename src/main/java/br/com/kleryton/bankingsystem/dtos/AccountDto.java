@@ -2,7 +2,6 @@ package br.com.kleryton.bankingsystem.dtos;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -26,13 +25,11 @@ public class AccountDto {
 	@NotEmpty(message = "{campo.accountCode.obrigatorio}")
 	@Length(max = 8, message = "{campo.accountCode.digitos}")
 	@NotNull(message = "{campo.accountCode.nulo}")
-	@Column(nullable = false, unique = true)
 	private String accountCode;
 
 	@NotEmpty(message = "{campo.verificationDigital.obrigatorio}")
 	@Length(max = 1, message = "{campo.verificationDigital.digitos}")
 	@NotNull(message = "{campo.verificationDigital.nulo}")
-	@Column(nullable = false, unique = true)
 	private String verificationDigital;
 
 	@CPF(message = "{campo.accountcpf.invalido}")
