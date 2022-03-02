@@ -33,12 +33,12 @@ public class CardDto {
 	@NotEmpty(message = "{campo.number.obrigatorio}")
 	@NotNull(message = "{campo.number.nulo}")
 	@Pattern(regexp = "[0-9]{4}[\\.][0-9]{4}[\\.][0-9]{4}[\\.][0-9]{4}", message = "{campo.number.invalido}")
-	private Integer number;
+	private String number;
 
 	@NotEmpty(message = "{campo.digitCode.obrigatorio}")
 	@NotNull(message = "{campo.digitCode.nulo}")
-	@Pattern(regexp = "[0-9]{1}", message = "{campo.digit.obrigatorio}")
-	private Integer digitCode;
+	@Pattern(regexp = "[0-9]{3}", message = "{campo.digitCode.invalido")
+	private String digitCode;
 
 	@NotEmpty(message = "{campo.limitBalance.obrigatorio}")
 	@NotNull(message = "{campo.limitBalance.nulo}")
@@ -83,19 +83,19 @@ public class CardDto {
 		this.typeCard = typeCard;
 	}
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Integer number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
-	public Integer getDigitCode() {
+	public String getDigitCode() {
 		return digitCode;
 	}
 
-	public void setDigitCode(Integer digitCode) {
+	public void setDigitCode(String digitCode) {
 		this.digitCode = digitCode;
 	}
 

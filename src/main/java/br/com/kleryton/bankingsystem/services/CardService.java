@@ -1,10 +1,10 @@
 package br.com.kleryton.bankingsystem.services;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,8 @@ import br.com.kleryton.bankingsystem.repositories.CardReposytory;
 @Service
 public class CardService {
 
-	final CardReposytory cardReposytory;
-
-	public CardService(CardReposytory cardReposytory) {
-		this.cardReposytory = cardReposytory;
-	}
+	@Autowired
+	 CardReposytory cardReposytory;
 
 	@Transactional
 	public CardModel save(CardModel card) {
@@ -30,7 +27,7 @@ public class CardService {
 		return cardReposytory.findAll(pageable);
 	}
 
-	public Optional<CardModel> findById(UUID id) {
+	public Optional<CardModel> findById(Long id) {
 		return cardReposytory.findById(id);
 	}
 
@@ -38,5 +35,9 @@ public class CardService {
 	public void delete(CardModel card) {
 		cardReposytory.delete(card);
 	}
+	
+//	public boolean existsByNumberCard(String numberCard) {
+//		return cardReposytory.existsByNumberCard(numberCard);
+//	}
 
 }

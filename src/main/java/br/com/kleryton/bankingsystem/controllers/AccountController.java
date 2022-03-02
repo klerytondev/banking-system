@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kleryton.bankingsystem.dtos.AccountDto;
 import br.com.kleryton.bankingsystem.models.AccountModel;
+import br.com.kleryton.bankingsystem.responseDto.AccountResponseDto;
 import br.com.kleryton.bankingsystem.services.AccountService;
 
 @RestController
@@ -29,22 +30,22 @@ public class AccountController {
 	@Autowired
 	AccountService accountService;
 	
-
-	@PostMapping
+	@PostMapping("/addAccount")
 	public ResponseEntity<Object> saveAccount(@RequestBody @Valid AccountDto accountDto) {
 		if (accountService.existsByRegisterId(accountDto.getRegisterId())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Register id is already in use!");
 		}
 
-		AccountModel accountModel = new AccountModel();
+		var accountModel = new AccountModel();
 		BeanUtils.copyProperties(accountDto, accountModel);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountDto(accountService.save(accountModel)));
 		
 	}
-
-	@GetMapping
-	public ResponseEntity<List<AccountModel>> getAllAccountModel() {
-		return ResponseEntity.status(HttpStatus.OK).body(accountService.findAll());
+	
+	@GetMapping("/search")
+	public ResponseEntity<List<AccountResponseDto>> getAllAccountModel() {
+		var accounResponsetDto = new AccountResponseDto();
+		return ResponseEntity.status(HttpStatus.OK).body(accounResponsetDto.convertToDto(accountService.findAll()));
 	}
 
 	@GetMapping("/{id}")
@@ -76,7 +77,7 @@ public class AccountController {
 		var accountModel = new AccountModel();
 		BeanUtils.copyProperties(accountDto, accountModel);
 		accountModel.setId(accountModelOptional.get().getId());
-		return ResponseEntity.status(HttpStatus.OK).body(accountService.save(accountModel));
+		return ResponseEntity.status(HttpStatus.OK).body(new AccountDto(accountService.save(accountModel)));
 	}
 
 }

@@ -1,13 +1,10 @@
-package br.com.kleryton.bankingsystem.models;
+package br.com.kleryton.bankingsystem.exceptions;
 
 import java.util.Arrays;
 import java.util.List;
 
-import lombok.Getter;
+public class ApiErrors {
 
-public class ApiErrors{
-
-	@Getter
 	private List<String> errors;
 
 	public ApiErrors(List<String> errors) {
@@ -16,6 +13,14 @@ public class ApiErrors{
 
 	public ApiErrors(String message) {
 		this.errors = Arrays.asList(message);
+	}
+
+	public List<String> getErrors() {
+		return errors;
+	}
+
+	public void setErrors(List<String> errors) {
+		this.errors = errors;
 	}
 
 }

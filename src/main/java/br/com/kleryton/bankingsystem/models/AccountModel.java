@@ -2,19 +2,21 @@ package br.com.kleryton.bankingsystem.models;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 @Table(name = "TB_ACCOUNT")
 public class AccountModel implements Serializable {
@@ -24,7 +26,7 @@ public class AccountModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String nameOwner;
 
 	@Column(nullable = false)
@@ -39,9 +41,9 @@ public class AccountModel implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String registerId;
 
-//	@JsonManagedReference
-//	@OneToMany(mappedBy = "accountModel", cascade = CascadeType.ALL)
-//	private Set<CardModel> cardModel;
+	@JsonManagedReference
+	@OneToMany(mappedBy = "accountModel", cascade = CascadeType.ALL)
+	private Set<CardModel> cardModel;
 
 	public AccountModel() {
 	}
@@ -53,7 +55,6 @@ public class AccountModel implements Serializable {
 		this.accountCode = accountCode;
 		this.verificationDigital = verificationDigital;
 		this.registerId = registerId;
-//		cardModel = card;
 	}
 
 	public Long getId() {
@@ -108,13 +109,13 @@ public class AccountModel implements Serializable {
 		return serialVersionUID;
 	}
 
-//	public Set<CardModel> getCard() {
-//		return cardModel;
-//	}
-//
-//	public void setCard(Set<CardModel> card) {
-//		this.cardModel = card;
-//	}
+	public Set<CardModel> getCard() {
+		return cardModel;
+	}
+
+	public void setCard(CardModel cards) {
+		this.cardModel.add(cards);
+	}
 
 	@Override
 	public int hashCode() {

@@ -3,20 +3,26 @@ package br.com.kleryton.bankingsystem.models;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "TB_CARD")
 
 public class CardModel implements Serializable {
@@ -29,45 +35,47 @@ public class CardModel implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String nameCard;
 
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private CardFlag flag;
 
 	@Column(nullable = false, unique = true)
-	private Integer number;
+	private String number;
 
 	@Column(nullable = false)
-	private Integer digitCode;
+	private String digitCode;
 
 	@Column(nullable = false)
 	private double limitBalance;
 
-//	@JsonBackReference
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "accountModel_id")
-//	private AccountModel accountModel;
-
-//	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-//	@JoinColumn(name = "type_card_model_id")
-//	private TypeCardModel typeCardModel;
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TB_ACCOUNT_id")
+	private AccountModel accountModel;
+	
+	@Enumerated(EnumType.STRING)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "type_card_model_id")
+	private TypeCardModel typeCardModel;
 
 	public CardModel() {
 	}
 
-	public CardModel(String nameCard, CardFlag flag, Integer number, Integer digitCode, double limitBalance,
+	public CardModel(String nameCard, CardFlag flag, String number, String digitCode, double limitBalance,
 			AccountModel account, TypeCardModel tyCard) {
 		this.nameCard = nameCard;
 		this.flag = flag;
 		this.number = number;
 		this.digitCode = digitCode;
 		this.limitBalance = limitBalance;
-//		this.accountModel = account;
-//		this.typeCardModel = tyCard;
+		this.accountModel = account;
+		this.typeCardModel = tyCard;
 	}
 
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -88,19 +96,19 @@ public class CardModel implements Serializable {
 		this.flag = flag;
 	}
 
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(Integer number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
-	public Integer getDigitCode() {
+	public String getDigitCode() {
 		return digitCode;
 	}
 
-	public void setDigitCode(Integer digitCode) {
+	public void setDigitCode(String digitCode) {
 		this.digitCode = digitCode;
 	}
 
@@ -112,21 +120,21 @@ public class CardModel implements Serializable {
 		this.limitBalance = limitBalance;
 	}
 
-//	public AccountModel getAccount() {
-//		return accountModel;
-//	}
-//
-//	public void setAccount(AccountModel account) {
-//		this.accountModel = account;
-//	}
+	public AccountModel getAccount() {
+		return accountModel;
+	}
 
-//	public TypeCardModel getTyCard() {
-//		return typeCardModel;
-//	}
-//
-//	public void setTyCard(TypeCardModel tyCard) {
-//		this.typeCardModel = tyCard;
-//	}
+	public void setAccount(AccountModel account) {
+		this.accountModel = account;
+	}
+
+	public TypeCardModel getTyCard() {
+		return typeCardModel;
+	}
+
+	public void setTyCard(TypeCardModel tyCard) {
+		this.typeCardModel = tyCard;
+	}
 
 	@Override
 	public int hashCode() {
