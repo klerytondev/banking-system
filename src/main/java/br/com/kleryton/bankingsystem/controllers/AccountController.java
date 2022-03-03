@@ -58,8 +58,11 @@ public class AccountController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteAccountModel(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<Object> deleteAccountModel(@PathVariable Long id) {
 		Optional<AccountModel> accountModelOptional = accountService.findById(id);
+		if(!accountService.findById(id).get().getCard().isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The account has cards. Unable to delete!");
+		}
 		if (!accountModelOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found.");
 		}

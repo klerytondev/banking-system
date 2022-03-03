@@ -39,7 +39,7 @@ public class CardModel implements Serializable {
 	@Column(nullable = false)
 	private CardFlag flag;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String number;
 
 	@Column(nullable = false)

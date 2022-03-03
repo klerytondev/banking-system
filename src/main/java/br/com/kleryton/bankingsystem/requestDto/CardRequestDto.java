@@ -14,33 +14,25 @@ import br.com.kleryton.bankingsystem.models.enums.TypeCardsEnum;
 
 public class CardRequestDto {
 
-//	@NotEmpty(message = "{campo.nameCard.obrigatorio}")
 	@Length(max = 128, message = "{campo.nameCard.caracteres}")
 	@NotNull(message = "{campo.nameCard.nulo}")
 	private String nameCard;
 
-//	@NotEmpty(message = "{campo.flag.obrigatorio}")
 	@NotNull(message = "{campo.flag.nulo}")
 	private CardFlag flag;
 	
-//	@NotEmpty(message = "{campo.typeCard.obrigatorio}")
-//	@Length(max = 128, message = "{campo.typeCard.caracteres}")
 	@NotNull(message = "{campo.typeCard.nulo}")
 	private TypeCardsEnum typeCard;
 
-//	@NotEmpty(message = "{campo.number.obrigatorio}")
-	@Pattern(regexp = "[0-9]{4}[\\.][0-9]{4}[\\.][0-9]{4}[\\.][0-9]{4}", message = "{campo.number.invalido}")
+	@Pattern(regexp = "[0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}", message = "{campo.number.invalido}")
 	@NotNull(message = "{campo.typeCard.nulo}")
 	private String number;
 
-//	@NotEmpty(message = "{campo.digitCode.obrigatorio}")
 	@Pattern(regexp = "[0-9]{3}", message = "{campo.digitCode.invalido")
 	@NotNull(message = "{campo.typeCard.nulo}")
 	private String digitCode;
 
-//	@NotEmpty(message = "{campo.limitBalance.obrigatorio}")
 	@NotNull(message = "{campo.limitBalance.nulo}")
-//	@Digits(integer = 14, fraction = 2)
 	@PositiveOrZero(message = "{campo.positiveorzero.postivo}")
 	private double limitBalance;
 

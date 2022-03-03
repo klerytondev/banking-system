@@ -17,11 +17,7 @@ import br.com.kleryton.bankingsystem.repositories.CardReposytory;
 @Service
 public class CardService {
 
-	/*
-	 * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query
-	 * -methods
-	 */
-
+	
 	@Autowired
 	CardReposytory cardReposytory;
 
@@ -36,11 +32,7 @@ public class CardService {
 
 		return accountOptional.get();
 	}
-
-	public Optional<CardModel> findById(Long id) {
-		return cardReposytory.findById(id);
-	}
-
+	
 	@Transactional
 	public void delete(CardModel card) {
 		cardReposytory.delete(card);
@@ -70,13 +62,13 @@ public class CardService {
 		try {
 			accountModel = getAccountModelById(id);
 		} catch (Exception e) {
-			throw new RuntimeException("Não há cliente cadastrado com este id");
+			throw new RuntimeException("Não há contas cadastradas com este id");
 		}
 
 		Set<CardModel> cards = accountModel.getCard();
 
 		if (cards.isEmpty())
-			throw new RuntimeException("Não há endereços cadastrados para este cliente");
+			throw new RuntimeException("Não há cartões cadastrados para esta conta");
 
 		return cards;
 	}

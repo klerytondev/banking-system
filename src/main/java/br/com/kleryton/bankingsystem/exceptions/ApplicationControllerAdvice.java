@@ -35,7 +35,7 @@ public class ApplicationControllerAdvice {
 		err.setTimestamp(Instant.now());;
 		err.setStatus(status.value());
 		err.setError("Error: Duplicate entry");
-		err.setMessage("Numero da agencia em uso!");
+		err.setMessage("Numero da conta em uso!");
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
