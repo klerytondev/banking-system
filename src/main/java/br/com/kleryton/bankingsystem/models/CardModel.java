@@ -32,14 +32,14 @@ public class CardModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String nameCard;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private CardFlag flag;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String number;
 
 	@Column(nullable = false)

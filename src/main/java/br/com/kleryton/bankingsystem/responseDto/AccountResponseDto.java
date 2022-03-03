@@ -28,7 +28,8 @@ public class AccountResponseDto {
 		this.accountCode = accountModel.getAccountCode();
 		this.verificationDigital = accountModel.getVerificationDigital();
 		this.registerId = accountModel.getRegisterId();
-//		this.cardModel = accountModel.getCard();
+		this.cardModel = getCardModel();
+		
 	}
 
 	public Long getId() {

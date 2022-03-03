@@ -39,7 +39,6 @@ public class AccountService {
 		return accountRepository.existsByRegisterId(register_id);
 	}
 
-	
-	
+		
 
 }

@@ -1,8 +1,6 @@
 package br.com.kleryton.bankingsystem.models;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.smartcardio.Card;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 

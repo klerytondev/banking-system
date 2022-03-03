@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.kleryton.bankingsystem.dtos.AccountDto;
 import br.com.kleryton.bankingsystem.models.AccountModel;
+import br.com.kleryton.bankingsystem.requestDto.AccountRequestDto;
 import br.com.kleryton.bankingsystem.responseDto.AccountResponseDto;
 import br.com.kleryton.bankingsystem.services.AccountService;
 
@@ -31,14 +31,14 @@ public class AccountController {
 	AccountService accountService;
 	
 	@PostMapping("/addAccount")
-	public ResponseEntity<Object> saveAccount(@RequestBody @Valid AccountDto accountDto) {
+	public ResponseEntity<Object> saveAccount(@RequestBody @Valid AccountRequestDto accountDto) {
 		if (accountService.existsByRegisterId(accountDto.getRegisterId())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Register id is already in use!");
 		}
 
 		var accountModel = new AccountModel();
 		BeanUtils.copyProperties(accountDto, accountModel);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountDto(accountService.save(accountModel)));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountRequestDto(accountService.save(accountModel)));
 		
 	}
 	
@@ -54,7 +54,7 @@ public class AccountController {
 		if (!accountModelOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found.");
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(new AccountDto(accountModelOptional.get()));
+		return ResponseEntity.status(HttpStatus.OK).body(new AccountRequestDto(accountModelOptional.get()));
 	}
 
 	@DeleteMapping("/{id}")
@@ -69,7 +69,7 @@ public class AccountController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> updateAccountModel(@PathVariable(value = "id") Long id,
-			@RequestBody @Valid AccountDto accountDto) {
+			@RequestBody @Valid AccountRequestDto accountDto) {
 		Optional<AccountModel> accountModelOptional = accountService.findById(id);
 		if (!accountModelOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found.");
@@ -77,7 +77,7 @@ public class AccountController {
 		var accountModel = new AccountModel();
 		BeanUtils.copyProperties(accountDto, accountModel);
 		accountModel.setId(accountModelOptional.get().getId());
-		return ResponseEntity.status(HttpStatus.OK).body(new AccountDto(accountService.save(accountModel)));
+		return ResponseEntity.status(HttpStatus.OK).body(new AccountRequestDto(accountService.save(accountModel)));
 	}
 
 }
