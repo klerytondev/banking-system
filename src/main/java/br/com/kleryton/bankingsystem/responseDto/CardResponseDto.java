@@ -3,7 +3,11 @@ package br.com.kleryton.bankingsystem.responseDto;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 import br.com.kleryton.bankingsystem.models.CardModel;
+import br.com.kleryton.bankingsystem.models.TypeCardModel;
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;
 
 public class CardResponseDto {
@@ -14,18 +18,21 @@ public class CardResponseDto {
 	private String number;
 	private String digitCode;
 	private double limitBalance;
+	
+	@Enumerated(EnumType.STRING)
+	private TypeCardModel typeCardModel;
 
 	public CardResponseDto() {
 	}
 
 	public CardResponseDto(CardModel cardModel) {
-		super();
 		this.id = cardModel.getId();
 		this.nameCard = cardModel.getNameCard();
 		this.flag = cardModel.getFlag();
 		this.number = cardModel.getNumber();
 		this.digitCode = cardModel.getDigitCode();
 		this.limitBalance = cardModel.getLimitBalance();
+		this.typeCardModel = getTypeCardsEnum();
 	}
 
 	public Long getId() {
@@ -70,6 +77,15 @@ public class CardResponseDto {
 
 	public double getLimitBalance() {
 		return limitBalance;
+	}
+	
+
+	public TypeCardModel getTypeCardsEnum() {
+		return typeCardModel;
+	}
+
+	public void setTypeCardsEnum(TypeCardModel typeCardsEnum) {
+		this.typeCardModel = typeCardsEnum;
 	}
 
 	public void setLimitBalance(double limitBalance) {

@@ -1,6 +1,5 @@
 package br.com.kleryton.bankingsystem.services;
 
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -41,16 +40,11 @@ public class CardService {
 	@Transactional
 	public AccountModel createCardAccount(CardModel cardModel, Long id) {
 
-		Set<CardModel> listCards = new HashSet<>();
 		AccountModel accountModelPersist;
 		Optional<AccountModel> accountOptional = accountRepository.findById(id);
 		accountOptional.orElseThrow(() -> new RuntimeException("Conta bancária não encontrada"));
-
-		cardModel.setAccount(accountOptional.get());
-		listCards.add(cardModel);
-		accountOptional.get().setCard(listCards);
+		accountOptional.get().setCard(cardModel);
 		accountModelPersist = accountRepository.save(accountOptional.get());
-
 		return accountModelPersist;
 	}
 

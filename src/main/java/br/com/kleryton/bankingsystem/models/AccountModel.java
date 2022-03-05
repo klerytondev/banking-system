@@ -10,10 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -41,8 +40,8 @@ public class AccountModel implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String registerId;
 
-	@JsonManagedReference
-	@OneToMany(mappedBy = "accountModel", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="account_id")
 	private Set<CardModel> cardModel;
 
 	public AccountModel() {
@@ -113,8 +112,8 @@ public class AccountModel implements Serializable {
 		return cardModel;
 	}
 
-	public void setCard(Set<CardModel> cards) {
-		this.cardModel = cards;
+	public void setCard(CardModel cards) {
+		this.cardModel.add(cards);
 	}
 
 	@Override

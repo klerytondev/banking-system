@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.kleryton.bankingsystem.models.AccountModel;
-import br.com.kleryton.bankingsystem.models.CardModel;
+import br.com.kleryton.bankingsystem.requestDto.CardRequestDto;
 
 public class AccountResponseDto {
 
@@ -14,7 +14,7 @@ public class AccountResponseDto {
 	private String accountCode;
 	private String verificationDigital;
 	private String registerId;
-	private CardModel cardModel;
+	private CardRequestDto cardRequestDto;
 	
 	public AccountResponseDto() {
 	}
@@ -29,8 +29,7 @@ public class AccountResponseDto {
 		this.registerId = accountModel.getRegisterId();
 		
 	}
-	
-	public AccountResponseDto(AccountModel accountModel, CardModel cardModel) {
+	public AccountResponseDto(AccountModel accountModel, CardRequestDto cardRequestDto) {
 		super();
 		this.id = accountModel.getId();
 		this.nameOwner = accountModel.getNameOwner();
@@ -38,11 +37,11 @@ public class AccountResponseDto {
 		this.accountCode = accountModel.getAccountCode();
 		this.verificationDigital = accountModel.getVerificationDigital();
 		this.registerId = accountModel.getRegisterId();
-		this.cardModel = cardModel;
+		this.cardRequestDto = cardRequestDto;
 		
 	}
-
-	public Long getId() {
+	
+		public Long getId() {
 		return id;
 	}
 
@@ -66,8 +65,8 @@ public class AccountResponseDto {
 		return registerId;
 	}
 
-	public CardModel getCardModel() {
-		return cardModel;
+	public CardRequestDto getCardModel() {
+		return cardRequestDto;
 	}
 	
 	//Coverte uma lista de account em uma List de response DTO
