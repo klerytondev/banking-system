@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import br.com.kleryton.bankingsystem.models.TypeCardModel;
 
 @Repository
-public interface TypeCard extends JpaRepository<TypeCardModel, Long>{
+public interface TypeCardRepository extends JpaRepository<TypeCardModel, Long>{
 	
 
 }

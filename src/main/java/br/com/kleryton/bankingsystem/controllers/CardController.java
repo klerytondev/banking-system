@@ -40,7 +40,7 @@ public class CardController {
 //		CardResponseDto cardResponseDto = new CardResponseDto();
 		AccountModel accountModel = new AccountModel();
 		BeanUtils.copyProperties(cardRequestDto, cardModel);
-		accountModel = cardService.createCardAccount(cardModel, idAccount);
+		accountModel = cardService.createCardAccount(cardModel, idAccount, cardRequestDto.getTypeCard());
 		BeanUtils.copyProperties(cardModel, cardRequestDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountResponseDto(accountModel, cardRequestDto));
 	}

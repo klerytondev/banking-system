@@ -3,11 +3,12 @@ package br.com.kleryton.bankingsystem.models;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,9 +45,8 @@ public class CardModel implements Serializable {
 	@Column(nullable = false)
 	private double limitBalance;
 		
-	@Enumerated(EnumType.STRING)
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "type_card_id")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(unique = true, foreignKey = @ForeignKey(name = "type_card_id"))
 	private TypeCardModel typeCardModel;
 
 	public CardModel() {
@@ -110,11 +110,11 @@ public class CardModel implements Serializable {
 		this.limitBalance = limitBalance;
 	}
 
-	public TypeCardModel getTyCard() {
+	public TypeCardModel getTypeCard() {
 		return typeCardModel;
 	}
 
-	public void setTyCard(TypeCardModel tyCard) {
+	public void setTypeCard(TypeCardModel tyCard) {
 		this.typeCardModel = tyCard;
 	}
 	

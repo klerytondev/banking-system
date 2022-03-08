@@ -2,6 +2,8 @@ package br.com.kleryton.bankingsystem.requestDto;
 
 import java.util.Objects;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
@@ -9,8 +11,8 @@ import javax.validation.constraints.PositiveOrZero;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.kleryton.bankingsystem.models.CardModel;
+import br.com.kleryton.bankingsystem.models.TypeCardModel;
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;
-import br.com.kleryton.bankingsystem.models.enums.TypeCardsEnum;
 
 public class CardRequestDto {
 
@@ -21,8 +23,8 @@ public class CardRequestDto {
 	@NotNull(message = "{campo.flag.nulo}")
 	private CardFlag flag;
 	
-	@NotNull(message = "{campo.typeCard.nulo}")
-	private TypeCardsEnum typeCard;
+//	@NotNull(message = "{campo.typeCard.nulo}")
+	private TypeCardModel typeCard;
 
 	@Pattern(regexp = "[0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}", message = "{campo.number.invalido}")
 	@NotNull(message = "{campo.typeCard.nulo}")
@@ -65,11 +67,11 @@ public class CardRequestDto {
 		this.flag = flag;
 	}
 
-	public TypeCardsEnum getTypeCard() {
+	public TypeCardModel getTypeCard() {
 		return typeCard;
 	}
 
-	public void setTypeCard(TypeCardsEnum typeCard) {
+	public void setTypeCard(TypeCardModel typeCard) {
 		this.typeCard = typeCard;
 	}
 

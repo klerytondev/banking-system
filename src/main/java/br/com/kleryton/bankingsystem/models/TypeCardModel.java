@@ -21,7 +21,7 @@ public class TypeCardModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
 	private TypeCardsEnum typeCardsEnum;
 
 	public  TypeCardModel() {
@@ -40,7 +40,6 @@ public class TypeCardModel implements Serializable {
 		this.typeCardsEnum = name;
 	}
 
-	
 	public Long getId() {
 		return id;
 	}
