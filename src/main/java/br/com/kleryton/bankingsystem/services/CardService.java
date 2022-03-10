@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.kleryton.bankingsystem.models.AccountModel;
 import br.com.kleryton.bankingsystem.models.CardModel;
-import br.com.kleryton.bankingsystem.models.TypeCardModel;
 import br.com.kleryton.bankingsystem.repositories.AccountRepository;
 import br.com.kleryton.bankingsystem.repositories.CardReposytory;
 import br.com.kleryton.bankingsystem.repositories.TypeCardRepository;
@@ -18,13 +17,12 @@ import br.com.kleryton.bankingsystem.repositories.TypeCardRepository;
 @Service
 public class CardService {
 
-	
 	@Autowired
 	CardReposytory cardReposytory;
 
 	@Autowired
 	AccountRepository accountRepository;
-	
+
 	@Autowired
 	TypeCardRepository typeCardRepository;
 
@@ -36,21 +34,21 @@ public class CardService {
 
 		return accountOptional.get();
 	}
-	
+
 	@Transactional
 	public void delete(CardModel card) {
 		cardReposytory.delete(card);
 	}
 
 	@Transactional
-	public AccountModel createCardAccount(CardModel cardModel, Long id, TypeCardModel typeCardModel) {
+	public AccountModel createCardAccount(CardModel cardModel, Long id) {
 
 		AccountModel accountModelPersist;
 		Optional<AccountModel> accountOptional = accountRepository.findById(id);
 		accountOptional.orElseThrow(() -> new RuntimeException("Conta bancária não encontrada"));
-		TypeCardModel typeCardModelPersist = typeCardRepository.save(typeCardModel);
-		cardModel.setTypeCard(typeCardModelPersist);
+
 		accountOptional.get().setCard(cardModel);
+
 		accountModelPersist = accountRepository.save(accountOptional.get());
 		return accountModelPersist;
 	}

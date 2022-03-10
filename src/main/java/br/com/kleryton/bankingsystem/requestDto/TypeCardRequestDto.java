@@ -2,23 +2,18 @@ package br.com.kleryton.bankingsystem.requestDto;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotBlank;
-
-import br.com.kleryton.bankingsystem.models.enums.TypeCardsEnum;
-
 public class TypeCardRequestDto {
 
 //	@NotEmpty(message = "{campo.TypeCards.obrigatorio}")
 //	@NotNull(message = "{campo.TypeCards.nulo}")
-	@NotBlank
-	private TypeCardsEnum name;
+	private String name;
 	
 	
-	public TypeCardsEnum getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(TypeCardsEnum name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 

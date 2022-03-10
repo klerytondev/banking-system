@@ -30,7 +30,6 @@ public class AccountResponseDto {
 		
 	}
 	public AccountResponseDto(AccountModel accountModel, CardRequestDto cardRequestDto) {
-		super();
 		this.id = accountModel.getId();
 		this.nameOwner = accountModel.getNameOwner();
 		this.agencyCode = accountModel.getAgencyCode();
@@ -38,6 +37,7 @@ public class AccountResponseDto {
 		this.verificationDigital = accountModel.getVerificationDigital();
 		this.registerId = accountModel.getRegisterId();
 		this.cardRequestDto = cardRequestDto;
+		
 		
 	}
 	

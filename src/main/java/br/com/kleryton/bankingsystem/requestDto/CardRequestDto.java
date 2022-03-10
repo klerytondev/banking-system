@@ -2,8 +2,6 @@ package br.com.kleryton.bankingsystem.requestDto;
 
 import java.util.Objects;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
@@ -26,7 +24,7 @@ public class CardRequestDto {
 //	@NotNull(message = "{campo.typeCard.nulo}")
 	private TypeCardModel typeCard;
 
-	@Pattern(regexp = "[0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}", message = "{campo.number.invalido}")
+//	@Pattern(regexp = "[0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}", message = "{campo.number.invalido}")
 	@NotNull(message = "{campo.typeCard.nulo}")
 	private String number;
 
@@ -42,13 +40,12 @@ public class CardRequestDto {
 	}
 
 	public CardRequestDto(CardModel card) {
-		super();
-		this.nameCard = getNameCard();
-		this.flag = getFlag();
-		this.typeCard = getTypeCard();
-		this.number = getNumber();
-		this.digitCode = getDigitCode();
-		this.limitBalance = getLimitBalance();
+		this.nameCard = card.getNameCard();
+		this.flag = card.getFlag();
+		this.typeCard = card.getTypeCard();
+		this.number = card.getNumber();
+		this.digitCode = card.getDigitCode();
+		this.limitBalance = card.getLimitBalance();
 	}
 
 	public String getNameCard() {

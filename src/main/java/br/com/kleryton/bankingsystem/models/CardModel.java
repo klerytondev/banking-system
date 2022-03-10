@@ -46,7 +46,7 @@ public class CardModel implements Serializable {
 	private double limitBalance;
 		
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(unique = true, foreignKey = @ForeignKey(name = "type_card_id"))
+	@JoinColumn(unique = true, foreignKey = @ForeignKey(name = "type_Card"))
 	private TypeCardModel typeCardModel;
 
 	public CardModel() {

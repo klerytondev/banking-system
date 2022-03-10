@@ -37,10 +37,9 @@ public class CardController {
 	public ResponseEntity<AccountResponseDto> saveCard(@RequestBody @Valid CardRequestDto cardRequestDto,
 			@PathVariable Long idAccount) {
 		CardModel cardModel = new CardModel();
-//		CardResponseDto cardResponseDto = new CardResponseDto();
 		AccountModel accountModel = new AccountModel();
 		BeanUtils.copyProperties(cardRequestDto, cardModel);
-		accountModel = cardService.createCardAccount(cardModel, idAccount, cardRequestDto.getTypeCard());
+		accountModel = cardService.createCardAccount(cardModel, idAccount);
 		BeanUtils.copyProperties(cardModel, cardRequestDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountResponseDto(accountModel, cardRequestDto));
 	}
