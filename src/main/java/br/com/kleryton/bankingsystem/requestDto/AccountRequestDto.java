@@ -4,7 +4,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
@@ -14,24 +13,20 @@ import br.com.kleryton.bankingsystem.models.CardModel;
 
 public class AccountRequestDto {
 
-	@NotEmpty(message = "{campo.nameOwner.obrigatorio}")
-	@Length(max = 50, message = "{campo.nameOwner.caracteres}")
-	@NotNull(message = "{campo.nameOwner.nulo}")
+	@NotEmpty(message = "{campo.nameowner.obrigatorio}")
+	@Length(max = 50, message = "{campo.nameowner.caracteres}")
 	private String nameOwner;
 
 	@NotEmpty(message = "{campo.agencyCode.obrigatorio}")
 	@Length(max = 4, message = "{campo.agencyCode.digitos}")
-	@NotNull(message = "{campo.agencyCode.nulo}")
 	private String agencyCode;
 
 	@NotEmpty(message = "{campo.accountCode.obrigatorio}")
 	@Length(max = 8, message = "{campo.accountCode.digitos}")
-	@NotNull(message = "{campo.accountCode.nulo}")
 	private String accountCode;
 
 	@NotEmpty(message = "{campo.verificationDigital.obrigatorio}")
 	@Length(max = 1, message = "{campo.verificationDigital.digitos}")
-	@NotNull(message = "{campo.verificationDigital.nulo}")
 	private String verificationDigital;
 
 	@CPF(message = "{campo.accountcpf.invalido}")

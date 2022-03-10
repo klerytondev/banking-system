@@ -18,4 +18,5 @@ public class TypeCardService {
     public TypeCardModel createTypeCard(TypeCardModel typeCardModel) {
         return typeCardRepository.save(typeCardModel);
 	}
+
 }

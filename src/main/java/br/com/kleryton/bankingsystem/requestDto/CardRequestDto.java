@@ -2,6 +2,7 @@ package br.com.kleryton.bankingsystem.requestDto;
 
 import java.util.Objects;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
@@ -12,28 +13,27 @@ import br.com.kleryton.bankingsystem.models.CardModel;
 import br.com.kleryton.bankingsystem.models.TypeCardModel;
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;
 
+
 public class CardRequestDto {
 
 	@Length(max = 128, message = "{campo.nameCard.caracteres}")
-	@NotNull(message = "{campo.nameCard.nulo}")
+	@NotEmpty(message = "{campo.namecard.nulo}")
 	private String nameCard;
 
-	@NotNull(message = "{campo.flag.nulo}")
+//	@Pattern(regexp = "MASTERCARD|VISA|ELO")
 	private CardFlag flag;
 	
 //	@NotNull(message = "{campo.typeCard.nulo}")
 	private TypeCardModel typeCard;
 
-//	@Pattern(regexp = "[0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}", message = "{campo.number.invalido}")
-	@NotNull(message = "{campo.typeCard.nulo}")
+	@Pattern(regexp = "[0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}", message = "{campo.number.invalido}")
 	private String number;
 
-	@Pattern(regexp = "[0-9]{3}", message = "{campo.digitCode.invalido")
-	@NotNull(message = "{campo.typeCard.nulo}")
+	@Pattern(regexp = "[0-9]{3}", message = "{campo.digitCode.invalido}")
 	private String digitCode;
 
-	@NotNull(message = "{campo.limitBalance.nulo}")
 	@PositiveOrZero(message = "{campo.positiveorzero.postivo}")
+	@NotNull(message= "{campo.limitBalance.nulo}")
 	private double limitBalance;
 
 	public CardRequestDto() {

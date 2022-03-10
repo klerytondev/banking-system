@@ -19,7 +19,7 @@ public class TypeCardModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Pattern(regexp = "MEAL_CARD|CRED_CARD|DEBI_CARD|GIFT_CARD", message = "So e permitido entradas do tipo MEAL_CARD, CRED_CARD, DEBI_CARD, GIFT_CARD")
+	@Pattern(regexp = "MEAL_CARD|CRED_CARD|DEBI_CARD|GIFT_CARD")
     @Column(name = "typeCard")
 	private String typeCard;
 
