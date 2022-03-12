@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import br.com.kleryton.bankingsystem.models.CardModel;
-import br.com.kleryton.bankingsystem.models.TypeCardModel;
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;
 
 public class CardResponseDto {
@@ -15,7 +14,7 @@ public class CardResponseDto {
 	private String number;
 	private String digitCode;
 	private double limitBalance;
-	private TypeCardModel typeCardModel;
+	private String typeCardModel;
 
 	public CardResponseDto() {
 	}
@@ -27,9 +26,9 @@ public class CardResponseDto {
 		this.number = cardModel.getNumber();
 		this.digitCode = cardModel.getDigitCode();
 		this.limitBalance = cardModel.getLimitBalance();
-		this.typeCardModel = getTypeCards();
+		this.typeCardModel = cardModel.getTypeCard().toString();
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -73,21 +72,20 @@ public class CardResponseDto {
 	public double getLimitBalance() {
 		return limitBalance;
 	}
-	
 
-	public TypeCardModel getTypeCards() {
+	public String getTypeCardModel() {
 		return typeCardModel;
 	}
 
-	public void setTypeCardsEnum(TypeCardModel typeCards) {
-		this.typeCardModel = typeCards;
+	public void setTypeCardModel(String typeCardModel) {
+		this.typeCardModel = typeCardModel;
 	}
 
 	public void setLimitBalance(double limitBalance) {
 		this.limitBalance = limitBalance;
 	}
 
-	// Coverte uma lista de cards em uma List de response DTO
+		// Coverte uma lista de cards em uma List de response DTO
 	public Set<CardResponseDto> convertToDto(Set<CardModel> cards) {
 		return cards.stream().map(CardResponseDto::new).collect(Collectors.toSet());
 	}

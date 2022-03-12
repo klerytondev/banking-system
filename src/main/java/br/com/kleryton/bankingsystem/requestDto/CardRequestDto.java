@@ -27,7 +27,7 @@ public class CardRequestDto {
 	private TypeCardModel typeCard;
 
 	@Pattern(regexp = "[0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}", message = "{campo.number.invalido}")
-	private String number;
+	private String numberCard;
 
 	@Pattern(regexp = "[0-9]{3}", message = "{campo.digitCode.invalido}")
 	private String digitCode;
@@ -43,7 +43,7 @@ public class CardRequestDto {
 		this.nameCard = card.getNameCard();
 		this.flag = card.getFlag();
 		this.typeCard = card.getTypeCard();
-		this.number = card.getNumber();
+		this.numberCard = card.getNumber();
 		this.digitCode = card.getDigitCode();
 		this.limitBalance = card.getLimitBalance();
 	}
@@ -73,11 +73,11 @@ public class CardRequestDto {
 	}
 
 	public String getNumber() {
-		return number;
+		return numberCard;
 	}
 
 	public void setNumber(String number) {
-		this.number = number;
+		this.numberCard = number;
 	}
 
 	public String getDigitCode() {
@@ -98,7 +98,7 @@ public class CardRequestDto {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(digitCode, flag, limitBalance, nameCard, number, typeCard);
+		return Objects.hash(digitCode, flag, limitBalance, nameCard, numberCard, typeCard);
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class CardRequestDto {
 		CardRequestDto other = (CardRequestDto) obj;
 		return Objects.equals(digitCode, other.digitCode) && flag == other.flag
 				&& Double.doubleToLongBits(limitBalance) == Double.doubleToLongBits(other.limitBalance)
-				&& Objects.equals(nameCard, other.nameCard) && Objects.equals(number, other.number)
+				&& Objects.equals(nameCard, other.nameCard) && Objects.equals(numberCard, other.numberCard)
 				&& Objects.equals(typeCard, other.typeCard);
 	}
 

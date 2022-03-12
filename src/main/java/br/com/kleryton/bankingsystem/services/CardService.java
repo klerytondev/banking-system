@@ -52,7 +52,6 @@ public class CardService {
 		accountModelPersist = accountRepository.save(accountOptional.get());
 		return accountModelPersist;
 	}
-
 	@Transactional
 	public Set<CardModel> getAllCardsDeUmaAccountById(Long id) {
 
@@ -65,6 +64,7 @@ public class CardService {
 		}
 
 		Set<CardModel> cards = accountModel.getCard();
+		
 
 		if (cards.isEmpty())
 			throw new RuntimeException("Não há cartões cadastrados para esta conta");

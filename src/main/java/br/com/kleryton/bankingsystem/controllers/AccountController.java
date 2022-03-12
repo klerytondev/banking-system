@@ -20,16 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kleryton.bankingsystem.models.AccountModel;
 import br.com.kleryton.bankingsystem.requestDto.AccountRequestDto;
-import br.com.kleryton.bankingsystem.responseDto.AccountResponseDto;
 import br.com.kleryton.bankingsystem.services.AccountService;
 
 @RestController
 @RequestMapping("/system-banking")
 public class AccountController {
-	
+
 	@Autowired
 	AccountService accountService;
-	
+
 	@PostMapping("/addAccount")
 	public ResponseEntity<Object> saveAccount(@RequestBody @Valid AccountRequestDto accountDto) {
 		if (accountService.existsByRegisterId(accountDto.getRegisterId())) {
@@ -39,13 +38,11 @@ public class AccountController {
 		var accountModel = new AccountModel();
 		BeanUtils.copyProperties(accountDto, accountModel);
 		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountRequestDto(accountService.save(accountModel)));
-		
 	}
-	
+
 	@GetMapping("/search")
-	public ResponseEntity<List<AccountResponseDto>> getAllAccountModel() {
-		var accounResponsetDto = new AccountResponseDto();
-		return ResponseEntity.status(HttpStatus.OK).body(accounResponsetDto.convertToDto(accountService.findAll()));
+	public ResponseEntity<List<AccountModel>> getAllAccountModel() {
+		return ResponseEntity.status(HttpStatus.OK).body(accountService.findAll());
 	}
 
 	@GetMapping("/{id}")
@@ -60,7 +57,7 @@ public class AccountController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteAccountModel(@PathVariable Long id) {
 		Optional<AccountModel> accountModelOptional = accountService.findById(id);
-		if(!accountService.findById(id).get().getCard().isEmpty()) {
+		if (!accountService.findById(id).get().getCard().isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The account has cards. Unable to delete!");
 		}
 		if (!accountModelOptional.isPresent()) {
@@ -80,6 +77,7 @@ public class AccountController {
 		var accountModel = new AccountModel();
 		BeanUtils.copyProperties(accountDto, accountModel);
 		accountModel.setId(accountModelOptional.get().getId());
+		accountModel.setCardList(accountModelOptional.get().getCard());
 		return ResponseEntity.status(HttpStatus.OK).body(new AccountRequestDto(accountService.save(accountModel)));
 	}
 

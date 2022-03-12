@@ -114,7 +114,11 @@ public class AccountModel implements Serializable {
 	public void setCard(CardModel cards) {
 		this.cardModel.add(cards);
 	}
-
+	
+	public void setCardList(Set<CardModel> cards) {
+		this.cardModel  = cards;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(accountCode, agencyCode, id, nameOwner, registerId, verificationDigital);

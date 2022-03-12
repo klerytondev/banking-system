@@ -34,7 +34,7 @@ public class ApplicationControllerAdvice {
 		HttpStatus status = HttpStatus.CONFLICT;
 		err.setTimestamp(Instant.now());;
 		err.setStatus(status.value());
-		err.setError("Error: Duplicate entry");
+		err.setError("Duplicate entry");
 		err.setMessage("Numero da conta em uso!");
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(err);

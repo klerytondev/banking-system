@@ -14,7 +14,7 @@ public class AccountResponseDto {
 	private String accountCode;
 	private String verificationDigital;
 	private String registerId;
-	private CardRequestDto cardRequestDto;
+	private CardRequestDto cardRequestDto;	
 	
 	public AccountResponseDto() {
 	}
