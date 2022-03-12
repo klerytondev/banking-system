@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -117,7 +118,7 @@ public class CardModel implements Serializable {
 	public void setTypeCard(TypeCardModel tyCard) {
 		this.typeCardModel = tyCard;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(digitCode, flag, id, limitBalance, nameCard, number);
@@ -136,5 +137,6 @@ public class CardModel implements Serializable {
 				&& Double.doubleToLongBits(limitBalance) == Double.doubleToLongBits(other.limitBalance)
 				&& Objects.equals(nameCard, other.nameCard) && Objects.equals(number, other.number);
 	}
+	
 
 }

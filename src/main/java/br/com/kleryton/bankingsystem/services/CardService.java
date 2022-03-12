@@ -39,6 +39,10 @@ public class CardService {
 	public void delete(CardModel card) {
 		cardReposytory.delete(card);
 	}
+	
+	public Optional<CardModel> findById(Long id) {
+		return cardReposytory.findById(id);
+	}
 
 	@Transactional
 	public AccountModel createCardAccount(CardModel cardModel, Long id) {
@@ -71,6 +75,11 @@ public class CardService {
 
 		return cards;
 	}
+
+	public CardModel save(CardModel cardModel) {
+		return cardReposytory.save(cardModel);
+	}
+	
 
 //	public boolean existsByNumberCard(String numberCard) {
 //		return cardReposytory.existsByNumberCard(numberCard);
