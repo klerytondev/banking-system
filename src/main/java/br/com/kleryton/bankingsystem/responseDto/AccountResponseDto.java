@@ -1,10 +1,10 @@
 package br.com.kleryton.bankingsystem.responseDto;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
 
 import br.com.kleryton.bankingsystem.models.AccountModel;
-import br.com.kleryton.bankingsystem.requestDto.CardRequestDto;
+import br.com.kleryton.bankingsystem.models.CardModel;
 
 public class AccountResponseDto {
 
@@ -14,34 +14,55 @@ public class AccountResponseDto {
 	private String accountCode;
 	private String verificationDigital;
 	private String registerId;
-	private CardRequestDto cardRequestDto;	
-	
+	private Set<CardModel> cardModel = new HashSet<>();
+
 	public AccountResponseDto() {
 	}
 
 	public AccountResponseDto(AccountModel accountModel) {
-		super();
 		this.id = accountModel.getId();
 		this.nameOwner = accountModel.getNameOwner();
 		this.agencyCode = accountModel.getAgencyCode();
 		this.accountCode = accountModel.getAccountCode();
 		this.verificationDigital = accountModel.getVerificationDigital();
 		this.registerId = accountModel.getRegisterId();
-		
+
+		//TODO verificar getters e setter e contrutores 
 	}
-	public AccountResponseDto(AccountModel accountModel, CardRequestDto cardRequestDto) {
-		this.id = accountModel.getId();
-		this.nameOwner = accountModel.getNameOwner();
-		this.agencyCode = accountModel.getAgencyCode();
-		this.accountCode = accountModel.getAccountCode();
-		this.verificationDigital = accountModel.getVerificationDigital();
-		this.registerId = accountModel.getRegisterId();
-		this.cardRequestDto = cardRequestDto;
-		
-		
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	
-		public Long getId() {
+
+	public Set<CardModel> getCardModel() {
+		return cardModel;
+	}
+
+	public void setCardModel(Set<CardModel> cardModel) {
+		this.cardModel = cardModel;
+	}
+
+	public void setNameOwner(String nameOwner) {
+		this.nameOwner = nameOwner;
+	}
+
+	public void setAgencyCode(String agencyCode) {
+		this.agencyCode = agencyCode;
+	}
+
+	public void setAccountCode(String accountCode) {
+		this.accountCode = accountCode;
+	}
+
+	public void setVerificationDigital(String verificationDigital) {
+		this.verificationDigital = verificationDigital;
+	}
+
+	public void setRegisterId(String registerId) {
+		this.registerId = registerId;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
@@ -63,15 +84,6 @@ public class AccountResponseDto {
 
 	public String getRegisterId() {
 		return registerId;
-	}
-
-	public CardRequestDto getCardModel() {
-		return cardRequestDto;
-	}
-	
-	//Coverte uma lista de account em uma List de response DTO
-	public List<AccountResponseDto> convertToDto(List<AccountModel> accounts) {
-		return accounts.stream().map(AccountResponseDto::new).collect(Collectors.toList());
 	}
 
 }

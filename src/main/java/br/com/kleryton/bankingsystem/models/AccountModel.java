@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +41,7 @@ public class AccountModel implements Serializable {
 	private String registerId;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="account_id")
+	@JoinColumn(name="account_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_cards"))
 	private Set<CardModel> cardModel;
 
 	public AccountModel() {
@@ -111,12 +112,12 @@ public class AccountModel implements Serializable {
 		return cardModel;
 	}
 
-	public void setCard(CardModel cards) {
-		this.cardModel.add(cards);
+	public void setCard(Set<CardModel> cards) {
+		this.cardModel = cards;
 	}
 	
-	public void setCardList(Set<CardModel> cards) {
-		this.cardModel  = cards;
+	public void setCardList(CardModel cards) {
+		this.cardModel.add(cards);
 	}
 	
 	@Override

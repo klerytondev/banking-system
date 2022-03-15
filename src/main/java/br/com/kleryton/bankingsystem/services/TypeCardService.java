@@ -9,8 +9,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.itexperts.project.model.CardType;
-
 import br.com.kleryton.bankingsystem.models.TypeCardModel;
 import br.com.kleryton.bankingsystem.repositories.TypeCardRepository;
 import br.com.kleryton.bankingsystem.requestDto.TypeCardRequestDto;
@@ -99,6 +97,8 @@ public class TypeCardService {
 		return typeCardResponseDto;
 	}
 
+	// Coverte response DTO em um typeCard
+	
 	private TypeCardModel convertDtoToModel(TypeCardRequestDto typeCardRequestDto) {
 
 		TypeCardModel typeCardModel = new TypeCardModel();

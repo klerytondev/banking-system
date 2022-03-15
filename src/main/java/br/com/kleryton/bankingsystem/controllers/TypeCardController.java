@@ -48,7 +48,7 @@ public class TypeCardController {
 	}
 
 	// U - Update By Name
-	@PutMapping
+	@PutMapping("/update")
 	public ResponseEntity<TypeCardResponseDto> updateByName(@PathParam("name") String name,
 			@RequestBody TypeCardRequestDto requestDTO) {
 		TypeCardResponseDto typeCardResponseDto = typeCardService.updateByName(name, requestDTO);
@@ -56,10 +56,10 @@ public class TypeCardController {
 	}
 
 	// D - Delete One by Name
-	@DeleteMapping
+	@DeleteMapping("/delete")
 	public ResponseEntity<String> deleteByName(@PathParam("name") String name) {
 		typeCardService.deleteByName(name);
-		return ResponseEntity.ok().body(name + "successfully deleted");
+		return ResponseEntity.ok().body(name + " successfully deleted");
 	}
 
 }

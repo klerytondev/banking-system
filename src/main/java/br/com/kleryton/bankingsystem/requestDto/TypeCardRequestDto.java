@@ -2,10 +2,12 @@ package br.com.kleryton.bankingsystem.requestDto;
 
 import java.util.Objects;
 
-public class TypeCardRequestDto {
+import javax.validation.constraints.Pattern;
 
-//	@NotEmpty(message = "{campo.TypeCards.obrigatorio}")
-//	@NotNull(message = "{campo.TypeCards.nulo}")
+public class TypeCardRequestDto {
+	
+	
+	@Pattern(regexp = "[a-zA-Z]", message = "Campo nulo! não foi possível inserir o typo de cartão.")
 	private String name;
 	
 	

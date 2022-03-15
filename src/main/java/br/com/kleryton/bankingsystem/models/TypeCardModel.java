@@ -7,11 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "TB_TYPE_CARD")
+@Table(name = "TB_TYPE_CARD", indexes = {
+        @Index(name = "type_card_name_index", columnList = "name", unique = true)})
 
 public class TypeCardModel implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -19,7 +21,7 @@ public class TypeCardModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Pattern(regexp = "MEAL_CARD|CRED_CARD|DEBI_CARD|GIFT_CARD")
+	
     @Column(name = "name")
 	private String name;
 
@@ -27,8 +29,7 @@ public class TypeCardModel implements Serializable {
 
 	}
 
-	public TypeCardModel(Long id, @Pattern(regexp = "MEAL_CARD|CRED_CARD|DEBI_CARD|GIFT_CARD") String name) {
-		super();
+	public TypeCardModel(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}

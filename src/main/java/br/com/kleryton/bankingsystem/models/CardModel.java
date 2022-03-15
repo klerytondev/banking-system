@@ -3,7 +3,6 @@ package br.com.kleryton.bankingsystem.models;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;
@@ -46,8 +44,8 @@ public class CardModel implements Serializable {
 	@Column(nullable = false)
 	private double limitBalance;
 		
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(unique = true, foreignKey = @ForeignKey(name = "type_Card"))
+	@ManyToOne
+    @JoinColumn(name = "card_type_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_card_type"))
 	private TypeCardModel typeCardModel;
 
 	public CardModel() {

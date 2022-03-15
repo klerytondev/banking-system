@@ -10,9 +10,12 @@ import org.springframework.stereotype.Service;
 
 import br.com.kleryton.bankingsystem.models.AccountModel;
 import br.com.kleryton.bankingsystem.models.CardModel;
+import br.com.kleryton.bankingsystem.models.TypeCardModel;
 import br.com.kleryton.bankingsystem.repositories.AccountRepository;
 import br.com.kleryton.bankingsystem.repositories.CardReposytory;
 import br.com.kleryton.bankingsystem.repositories.TypeCardRepository;
+import br.com.kleryton.bankingsystem.requestDto.CardRequestDto;
+import br.com.kleryton.bankingsystem.responseDto.CardResponseDto;
 
 @Service
 public class CardService {
@@ -22,15 +25,44 @@ public class CardService {
 
 	@Autowired
 	AccountRepository accountRepository;
+	
+	@Autowired
+	AccountService accountService;
 
 	@Autowired
 	TypeCardRepository typeCardRepository;
 
 	@Transactional
-
+	public AccountModel createCardAccount(CardRequestDto cardRequestDto, Long id) {
+		
+		// Verifica se a account existe no banco
+		Optional<AccountModel> accountOptional = accountRepository.findById(id);
+		accountOptional.orElseThrow(() -> new RuntimeException("Account not found."));
+		
+		// verificar se type Card existe no banco
+		Optional<TypeCardModel> typeCarModelOptional = typeCardRepository
+				.findByName(cardRequestDto.getTypeCard().getName());
+		typeCarModelOptional.orElseThrow(() -> new RuntimeException("Type Card not found."));
+		
+		//Seta o typeCard em um cardRequestDto
+		cardRequestDto.setTypeCard(typeCarModelOptional.get());
+		//Converte o cardRequestDto em um CardModel
+		CardModel cardModelPersist = new CardModel();
+		cardModelPersist = convertDtoToModel(cardRequestDto);
+		//Seta um card em conta 
+		accountOptional.get().setCardList(cardModelPersist);
+		
+		AccountModel accountModelPersist;
+		
+		accountModelPersist = accountRepository.save(accountOptional.get());
+		
+		return accountModelPersist; 
+	}
+	
+	@Transactional
 	public AccountModel getAccountModelById(Long id) {
 		Optional<AccountModel> accountOptional = accountRepository.findById(id);
-		accountOptional.orElseThrow(() -> new RuntimeException("conta não encontrada"));
+		accountOptional.orElseThrow(() -> new RuntimeException("Account not found."));
 
 		return accountOptional.get();
 	}
@@ -39,23 +71,12 @@ public class CardService {
 	public void delete(CardModel card) {
 		cardReposytory.delete(card);
 	}
-	
+
 	public Optional<CardModel> findById(Long id) {
 		return cardReposytory.findById(id);
 	}
 
-	@Transactional
-	public AccountModel createCardAccount(CardModel cardModel, Long id) {
 
-		AccountModel accountModelPersist;
-		Optional<AccountModel> accountOptional = accountRepository.findById(id);
-		accountOptional.orElseThrow(() -> new RuntimeException("Conta bancária não encontrada"));
-
-		accountOptional.get().setCard(cardModel);
-
-		accountModelPersist = accountRepository.save(accountOptional.get());
-		return accountModelPersist;
-	}
 	@Transactional
 	public Set<CardModel> getAllCardsDeUmaAccountById(Long id) {
 
@@ -68,7 +89,6 @@ public class CardService {
 		}
 
 		Set<CardModel> cards = accountModel.getCard();
-		
 
 		if (cards.isEmpty())
 			throw new RuntimeException("Não há cartões cadastrados para esta conta");
@@ -79,10 +99,34 @@ public class CardService {
 	public CardModel save(CardModel cardModel) {
 		return cardReposytory.save(cardModel);
 	}
-	
 
-//	public boolean existsByNumberCard(String numberCard) {
-//		return cardReposytory.existsByNumberCard(numberCard);
-//	}
+	// Converters
+
+	// Coverte um card em uma response DTO
+
+	private CardResponseDto convertModelToDTO(CardModel cardModel) {
+
+		CardResponseDto cardResponseDto = new CardResponseDto();
+		cardResponseDto.setId(cardModel.getId());
+		cardResponseDto.setFlag(cardModel.getFlag());
+		cardResponseDto.setTypeCardModel(cardModel.getTypeCard());
+
+		return cardResponseDto;
+	}
+	
+	// Coverte response DTO em um card
+
+	private CardModel convertDtoToModel(CardRequestDto cardRequestDto) {
+
+		CardModel cardModel = new CardModel();
+		cardModel.setNameCard(cardRequestDto.getNameCard());
+		cardModel.setFlag(cardRequestDto.getFlag());
+		cardModel.setNumber(cardRequestDto.getNumber());
+		cardModel.setDigitCode(cardRequestDto.getDigitCode());
+		cardModel.setLimitBalance(cardRequestDto.getLimitBalance());
+		cardModel.setTypeCard(cardRequestDto.getTypeCard());
+		
+		return cardModel;
+	}
 
 }

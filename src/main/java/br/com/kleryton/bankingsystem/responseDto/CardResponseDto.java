@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import br.com.kleryton.bankingsystem.models.CardModel;
+import br.com.kleryton.bankingsystem.models.TypeCardModel;
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;
 
 public class CardResponseDto {
@@ -14,7 +15,7 @@ public class CardResponseDto {
 	private String number;
 	private String digitCode;
 	private double limitBalance;
-	private String typeCardModel;
+	private TypeCardModel typeCardModel;
 
 	public CardResponseDto() {
 	}
@@ -26,7 +27,7 @@ public class CardResponseDto {
 		this.number = cardModel.getNumber();
 		this.digitCode = cardModel.getDigitCode();
 		this.limitBalance = cardModel.getLimitBalance();
-		this.typeCardModel = cardModel.getTypeCard().toString();
+		this.typeCardModel = cardModel.getTypeCard();
 	}
 	
 	public Long getId() {
@@ -73,11 +74,11 @@ public class CardResponseDto {
 		return limitBalance;
 	}
 
-	public String getTypeCardModel() {
+	public TypeCardModel getTypeCardModel() {
 		return typeCardModel;
 	}
 
-	public void setTypeCardModel(String typeCardModel) {
+	public void setTypeCardModel(TypeCardModel typeCardModel) {
 		this.typeCardModel = typeCardModel;
 	}
 

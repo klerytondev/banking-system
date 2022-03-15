@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import br.com.kleryton.bankingsystem.models.AccountModel;
 import br.com.kleryton.bankingsystem.repositories.AccountRepository;
 import br.com.kleryton.bankingsystem.repositories.CardReposytory;
+import br.com.kleryton.bankingsystem.requestDto.AccountRequestDto;
+import br.com.kleryton.bankingsystem.responseDto.AccountResponseDto;
 
 @Service
 public class AccountService {
@@ -23,7 +25,7 @@ public class AccountService {
 	CardReposytory cardReposytory;
 
 	@Transactional
-	public AccountModel save(AccountModel account) {
+	public AccountModel create(AccountModel account) {
 		return accountRepository.save(account);
 	}
 
@@ -48,5 +50,32 @@ public class AccountService {
 	public boolean existsByRegisterId(String register_id) {
 		return accountRepository.existsByRegisterId(register_id);
 	}
+	
+	// Converters
+
+		// Coverte uma account em uma response DTO
+
+		public AccountResponseDto convertModelToDTO(AccountModel accountModel) {
+
+			AccountResponseDto accountResponseDto = new AccountResponseDto(accountModel);
+			accountModel.setCard(accountModel.getCard());
+			
+			return accountResponseDto;
+		}
+		
+		// Coverte um response DTO em account
+
+		public AccountModel convertDtoToModel(AccountRequestDto accountRequestDto) {
+
+			AccountModel accountModel = new AccountModel();
+			accountModel.setNameOwner(accountRequestDto.getNameOwner());
+			accountModel.setAgencyCode(accountModel.getAgencyCode());
+			accountModel.setAccountCode(accountRequestDto.getAccountCode());
+			accountModel.setVerificationDigital(accountRequestDto.getVerificationDigital());
+			accountModel.setRegisterId(accountRequestDto.getRegisterId());
+			accountModel.setCard(accountRequestDto.getCardModel());
+			
+			return accountModel;
+		}
 
 }

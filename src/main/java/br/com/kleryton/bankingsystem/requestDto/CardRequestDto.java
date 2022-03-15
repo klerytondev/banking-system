@@ -23,7 +23,6 @@ public class CardRequestDto {
 //	@Pattern(regexp = "MASTERCARD|VISA|ELO")
 	private CardFlag flag;
 	
-//	@NotNull(message = "{campo.typeCard.nulo}")
 	private TypeCardModel typeCard;
 
 	@Pattern(regexp = "[0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}[\\ ][0-9]{4}", message = "{campo.number.invalido}")

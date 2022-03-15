@@ -37,14 +37,11 @@ public class CardController {
 	CardService cardService;
 
 	@PostMapping("/{idAccount}")
-	public ResponseEntity<AccountResponseDto> saveCard(@RequestBody @Valid CardRequestDto cardRequestDto,
+	public ResponseEntity<AccountModel> saveCard(@RequestBody @Valid CardRequestDto cardRequestDto,
 			@PathVariable Long idAccount) {
-		CardModel cardModel = new CardModel();
-		AccountModel accountModel = new AccountModel();
-		BeanUtils.copyProperties(cardRequestDto, cardModel);
-		accountModel = cardService.createCardAccount(cardModel, idAccount);
-		BeanUtils.copyProperties(cardModel, cardRequestDto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountResponseDto(accountModel, cardRequestDto));
+		AccountModel accountModel = cardService.createCardAccount(cardRequestDto, idAccount);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(accountModel);
 	}
 
 	@GetMapping("/{idAccount}")

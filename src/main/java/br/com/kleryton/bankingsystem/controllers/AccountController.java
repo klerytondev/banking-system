@@ -29,7 +29,8 @@ public class AccountController {
 	@Autowired
 	AccountService accountService;
 
-	@PostMapping("/addAccount")
+	// S- saveAccount
+	@PostMapping("/add")
 	public ResponseEntity<Object> saveAccount(@RequestBody @Valid AccountRequestDto accountDto) {
 		if (accountService.existsByRegisterId(accountDto.getRegisterId())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Register id is already in use!");
@@ -37,14 +38,16 @@ public class AccountController {
 
 		var accountModel = new AccountModel();
 		BeanUtils.copyProperties(accountDto, accountModel);
-		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountRequestDto(accountService.save(accountModel)));
+		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountRequestDto(accountService.create(accountModel)));
 	}
-
+	
+	// R - Read All
 	@GetMapping("/all")
 	public ResponseEntity<List<AccountModel>> getAllAccountModel() {
 		return ResponseEntity.status(HttpStatus.OK).body(accountService.findAll());
 	}
 
+	// R - Read One by Id
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> getOneAccountModel(@PathVariable(value = "id") Long id) {
 		Optional<AccountModel> accountModelOptional = accountService.findById(id);
@@ -54,6 +57,7 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.OK).body(new AccountRequestDto(accountModelOptional.get()));
 	}
 
+	// D - Delete One by id
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteAccountModel(@PathVariable Long id) {
 		Optional<AccountModel> accountModelOptional = accountService.findById(id);
@@ -67,6 +71,7 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.OK).body("Account deleted successfully.");
 	}
 
+	// U - Update One by id
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> updateAccountModel(@PathVariable(value = "id") Long id,
 			@RequestBody @Valid AccountRequestDto accountDto) {
@@ -77,8 +82,8 @@ public class AccountController {
 		var accountModel = new AccountModel();
 		BeanUtils.copyProperties(accountDto, accountModel);
 		accountModel.setId(accountModelOptional.get().getId());
-		accountModel.setCardList(accountModelOptional.get().getCard());
-		return ResponseEntity.status(HttpStatus.OK).body(new AccountRequestDto(accountService.save(accountModel)));
+		accountModel.setCard(accountModelOptional.get().getCard());
+		return ResponseEntity.status(HttpStatus.OK).body(new AccountRequestDto(accountService.create(accountModel)));
 	}
 
 }
