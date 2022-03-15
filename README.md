@@ -17,7 +17,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 Além disto é bom ter um editor para trabalhar com o código como [Spring Tools](https://spring.io/tools)
 
 # Executar a aplicação
-Primeiro é necessário iniciar seu banco de dados MySQL. É necessário criar as tabelas do banco. A API faz isso para você se na primeira execução você utilizar a seguinte propriedade spring.datasource.url=jdbc:mysql://localhost:3306/BD_banking?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSl=false a base é denominada 'BD_banking' e o banco por padrão é criado desde que o MYSQL tenha sido inicializado, os seguintes dados são utilizados:
+Primeiro é necessário iniciar seu banco de dados MySQL. É necessário criar as tabelas do banco. A API faz isso para você se na primeira execução você utilizar a seguinte propriedade ```bash spring.datasource.url=jdbc:mysql://localhost:3306/BD_banking?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSl=false``` a base é denominada 'BD_banking' e o banco por padrão é criado desde que o MYSQL tenha sido inicializado, os seguintes dados são utilizados:
 
 # application.properties
 ```bash
@@ -40,12 +40,12 @@ spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.show-sql=true
 ```
 # Principais técnologias utilizadas
-1.Java JDK 11
-2.Maven 3
-3.MySQL Database
-4.Spring Boot 2.6.4
-5.JWT
-6.Swagger 
+1. Java JDK 11
+2. Maven 3
+3. MySQL Database
+4. Spring Boot 2.6.4
+5. JWT
+6. Swagger 
 
 ### Features
 
@@ -59,4 +59,4 @@ spring.jpa.show-sql=true
 - [ ] Deploy project on AWS
 
 # Copyright
-Released under the Apache License 2.0. See the LICENSE(https://github.com/codecentric/springboot-sample-app/blob/master/LICENSE) file.
+Released under the Apache License 2.0. See the [LICENSE](https://github.com/codecentric/springboot-sample-app/blob/master/LICENSE) file.
