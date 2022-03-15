@@ -27,7 +27,7 @@ import br.com.kleryton.bankingsystem.services.AccountService;
 import br.com.kleryton.bankingsystem.services.CardService;
 
 @RestController
-@RequestMapping("/card")
+@RequestMapping("/system-banking/cards")
 public class CardController {
 
 	@Autowired
@@ -36,7 +36,7 @@ public class CardController {
 	@Autowired
 	CardService cardService;
 
-	@PostMapping("/{idAccount}/cards")
+	@PostMapping("/{idAccount}")
 	public ResponseEntity<AccountResponseDto> saveCard(@RequestBody @Valid CardRequestDto cardRequestDto,
 			@PathVariable Long idAccount) {
 		CardModel cardModel = new CardModel();
@@ -47,7 +47,7 @@ public class CardController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountResponseDto(accountModel, cardRequestDto));
 	}
 
-	@GetMapping("/{idAccount}/cards")
+	@GetMapping("/{idAccount}")
 	public ResponseEntity<Set<CardResponseDto>> retornaTodosOsCardsDeUmCliente(@PathVariable Long idAccount) {
 		cardService.getAllCardsDeUmaAccountById(idAccount);
 		Set<CardModel> cardModels = cardService.getAllCardsDeUmaAccountById(idAccount);

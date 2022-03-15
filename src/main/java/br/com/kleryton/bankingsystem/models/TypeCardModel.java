@@ -20,23 +20,29 @@ public class TypeCardModel implements Serializable {
 	private Long id;
 	
 	@Pattern(regexp = "MEAL_CARD|CRED_CARD|DEBI_CARD|GIFT_CARD")
-    @Column(name = "typeCard")
-	private String typeCard;
+    @Column(name = "name")
+	private String name;
 
 	public  TypeCardModel() {
 
 	}
 
+	public TypeCardModel(Long id, @Pattern(regexp = "MEAL_CARD|CRED_CARD|DEBI_CARD|GIFT_CARD") String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
 	public TypeCardModel(String name) {
-		this.typeCard = name;
+		this.name = name;
 	}
 
 	public String getName() {
-		return typeCard;
+		return name;
 	}
 
 	public void setName(String name) {
-		this.typeCard = name;
+		this.name = name;
 	}
 
 	public Long getId() {
@@ -49,7 +55,7 @@ public class TypeCardModel implements Serializable {
 
 	@Override
 	public String toString() {
-		return typeCard;
+		return name;
 	}
 	
 }

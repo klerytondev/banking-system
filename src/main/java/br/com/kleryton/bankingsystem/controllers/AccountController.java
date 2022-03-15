@@ -23,7 +23,7 @@ import br.com.kleryton.bankingsystem.requestDto.AccountRequestDto;
 import br.com.kleryton.bankingsystem.services.AccountService;
 
 @RestController
-@RequestMapping("/system-banking")
+@RequestMapping("/system-banking/account")
 public class AccountController {
 
 	@Autowired
@@ -40,7 +40,7 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountRequestDto(accountService.save(accountModel)));
 	}
 
-	@GetMapping("/search")
+	@GetMapping("/all")
 	public ResponseEntity<List<AccountModel>> getAllAccountModel() {
 		return ResponseEntity.status(HttpStatus.OK).body(accountService.findAll());
 	}
