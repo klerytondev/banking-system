@@ -47,7 +47,7 @@ spring.jpa.show-sql=true
 5. JWT
 6. Swagger 
 
-### Features
+### funcionalidades
 
 - [x] Gerenciamento de banco
 - [ ] Gerenciamento de accounts
