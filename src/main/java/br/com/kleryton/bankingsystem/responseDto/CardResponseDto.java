@@ -86,8 +86,4 @@ public class CardResponseDto {
 		this.limitBalance = limitBalance;
 	}
 
-		// Coverte uma lista de cards em uma List de response DTO
-	public Set<CardResponseDto> convertToDto(Set<CardModel> cards) {
-		return cards.stream().map(CardResponseDto::new).collect(Collectors.toSet());
-	}
-}
+		}

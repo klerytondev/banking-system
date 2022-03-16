@@ -29,7 +29,7 @@ public class AccountController {
 	@Autowired
 	AccountService accountService;
 
-	// S- saveAccount
+	//SaveAccount
 	@PostMapping("/add")
 	public ResponseEntity<Object> saveAccount(@RequestBody @Valid AccountRequestDto accountDto) {
 		if (accountService.existsByRegisterId(accountDto.getRegisterId())) {
@@ -41,13 +41,13 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(new AccountRequestDto(accountService.create(accountModel)));
 	}
 	
-	// R - Read All
+	//Read All
 	@GetMapping("/all")
 	public ResponseEntity<List<AccountModel>> getAllAccountModel() {
 		return ResponseEntity.status(HttpStatus.OK).body(accountService.findAll());
 	}
 
-	// R - Read One by Id
+	//Read One by Id
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> getOneAccountModel(@PathVariable(value = "id") Long id) {
 		Optional<AccountModel> accountModelOptional = accountService.findById(id);
@@ -57,7 +57,7 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.OK).body(new AccountRequestDto(accountModelOptional.get()));
 	}
 
-	// D - Delete One by id
+	//Delete One by id
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteAccountModel(@PathVariable Long id) {
 		Optional<AccountModel> accountModelOptional = accountService.findById(id);
@@ -71,7 +71,7 @@ public class AccountController {
 		return ResponseEntity.status(HttpStatus.OK).body("Account deleted successfully.");
 	}
 
-	// U - Update One by id
+	//Update One by id
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> updateAccountModel(@PathVariable(value = "id") Long id,
 			@RequestBody @Valid AccountRequestDto accountDto) {

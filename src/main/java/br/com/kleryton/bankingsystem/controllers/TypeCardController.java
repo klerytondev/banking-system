@@ -27,27 +27,27 @@ public class TypeCardController {
 	@Autowired
 	TypeCardService typeCardService;
 
-	// C- Create
+	//Create Type Card
 	@PostMapping
-	public ResponseEntity<TypeCardResponseDto> create(@RequestBody TypeCardRequestDto typeCardRequestDto) {
+	public ResponseEntity<TypeCardResponseDto> createTypeCard(@RequestBody TypeCardRequestDto typeCardRequestDto) {
 		TypeCardResponseDto typeCardResponseDto = typeCardService.createTypeCard(typeCardRequestDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(typeCardResponseDto);
 	}
 
-	// R - Read All
+	//Read All
 	@GetMapping("/all")
 	public ResponseEntity<List<TypeCardResponseDto>> getAll() {
 		List<TypeCardResponseDto> typeCardResponseDtos = typeCardService.getAll();
 		return ResponseEntity.ok().body(typeCardResponseDtos);
 	}
 
-	// R - Read One by Id
-	@GetMapping("/{id}")
-	public ResponseEntity<TypeCardResponseDto> getById(@PathVariable Long id) {
-		return ResponseEntity.ok(typeCardService.getById(id));
+	//Read One by Id
+	@GetMapping("/{idCard}")
+	public ResponseEntity<TypeCardResponseDto> getById(@PathVariable Long idCard) {
+		return ResponseEntity.ok(typeCardService.getById(idCard));
 	}
 
-	// U - Update By Name
+	//Update By Name
 	@PutMapping("/update")
 	public ResponseEntity<TypeCardResponseDto> updateByName(@PathParam("name") String name,
 			@RequestBody TypeCardRequestDto requestDTO) {
@@ -55,7 +55,7 @@ public class TypeCardController {
 		return ResponseEntity.ok().body(typeCardResponseDto);
 	}
 
-	// D - Delete One by Name
+	//Delete One by Name
 	@DeleteMapping("/delete")
 	public ResponseEntity<String> deleteByName(@PathParam("name") String name) {
 		typeCardService.deleteByName(name);

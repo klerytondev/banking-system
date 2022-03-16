@@ -1,11 +1,10 @@
 package br.com.kleryton.bankingsystem.controllers;
 
-import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,44 +34,40 @@ public class CardController {
 	@Autowired
 	CardService cardService;
 
+	//Create Card
 	@PostMapping("/{idAccount}")
-	public ResponseEntity<AccountModel> saveCard(@RequestBody @Valid CardRequestDto cardRequestDto,
+	public ResponseEntity<AccountModel> createCard(@RequestBody @Valid CardRequestDto cardRequestDto,
 			@PathVariable Long idAccount) {
 		AccountModel accountModel = cardService.createCardAccount(cardRequestDto, idAccount);
-		
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountModel);
 	}
+//TODO corrigir erro
 
+	//Read All
 	@GetMapping("/{idAccount}")
-	public ResponseEntity<Set<CardResponseDto>> retornaTodosOsCardsDeUmCliente(@PathVariable Long idAccount) {
-		cardService.getAllCardsDeUmaAccountById(idAccount);
-		Set<CardModel> cardModels = cardService.getAllCardsDeUmaAccountById(idAccount);
-		CardResponseDto cardResponseDto = new CardResponseDto();
-		return ResponseEntity.status(HttpStatus.OK).body(cardResponseDto.convertToDto(cardModels));
+	public ResponseEntity<Set<CardModel>> getAllCardsToAccount(@PathVariable Long idAccount) {
+		Set<CardModel> cardModels = cardService.getAllCardsToAccountById(idAccount);
+		return ResponseEntity.status(HttpStatus.OK).body(cardModels);
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> DeletecardModel(@PathVariable Long id) {
-		Optional<CardModel> cardModelOptional = cardService.findById(id);
-		if (cardService.findById(id).isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unable to delete. Card does not exist!");
+	//Delete One By id
+	@DeleteMapping("/delete")
+	public ResponseEntity<Object> DeletecardModel(@PathParam("id") Long id) {
+		Boolean cardDelete = cardService.deleteCard(id);
+		if (cardDelete == true) {
+			return ResponseEntity.status(HttpStatus.OK).body("Card deleted successfully");
 		}
-		cardService.delete(cardModelOptional.get());
-		return ResponseEntity.status(HttpStatus.OK).body("Card deleted successfully.");
+		return ResponseEntity.status(HttpStatus.OK).body("Could not delete card");
+
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<Object> updateCardModel(@PathVariable(value = "id") Long id, 
+	//Update By id
+	@PutMapping("/update")
+	public ResponseEntity<CardModel> updateCardModel(@PathParam("id") Long id,
 			@RequestBody @Valid CardRequestDto cardRequestDto) {
-		Optional<CardModel> cardModelOptional = cardService.findById(id);
-		if (cardService.findById(id).isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not exist!");
-		}
-		var cardModel = new CardModel();
-		BeanUtils.copyProperties(cardRequestDto, cardModel);
-		cardModel.setId(cardModelOptional.get().getId());
-		cardModel.setNumber(cardModelOptional.get().getNumber());
-		return ResponseEntity.status(HttpStatus.OK).body(new CardResponseDto(cardService.save(cardModel)));
+		CardModel cardModel = cardService.updateCard(id, cardRequestDto);
+
+		return ResponseEntity.status(HttpStatus.OK).body(cardModel);
 	}
-	
+
 }

@@ -25,7 +25,7 @@ public class CardService {
 
 	@Autowired
 	AccountRepository accountRepository;
-	
+
 	@Autowired
 	AccountService accountService;
 
@@ -34,33 +34,37 @@ public class CardService {
 
 	@Transactional
 	public AccountModel createCardAccount(CardRequestDto cardRequestDto, Long id) {
-		
+
 		// Verifica se a account existe no banco
 		Optional<AccountModel> accountOptional = accountRepository.findById(id);
 		accountOptional.orElseThrow(() -> new RuntimeException("Account not found."));
-		
+
 		// verificar se type Card existe no banco
 		Optional<TypeCardModel> typeCarModelOptional = typeCardRepository
 				.findByName(cardRequestDto.getTypeCard().getName());
 		typeCarModelOptional.orElseThrow(() -> new RuntimeException("Type Card not found."));
-		
-		//Seta o typeCard em um cardRequestDto
+
+		// Seta o typeCard em um cardRequestDto
 		cardRequestDto.setTypeCard(typeCarModelOptional.get());
-		//Converte o cardRequestDto em um CardModel
+
+		// Converte o cardRequestDto em um CardModel
 		CardModel cardModelPersist = new CardModel();
 		cardModelPersist = convertDtoToModel(cardRequestDto);
-		//Seta um card em conta 
+
+		// Seta um card em account
 		accountOptional.get().setCardList(cardModelPersist);
-		
+
 		AccountModel accountModelPersist;
-		
+
 		accountModelPersist = accountRepository.save(accountOptional.get());
-		
-		return accountModelPersist; 
+
+		return accountModelPersist;
 	}
-	
+
 	@Transactional
-	public AccountModel getAccountModelById(Long id) {
+	private AccountModel getAccountModelById(Long id) {
+		
+		//Verifica se existe uma account no banco de dados 
 		Optional<AccountModel> accountOptional = accountRepository.findById(id);
 		accountOptional.orElseThrow(() -> new RuntimeException("Account not found."));
 
@@ -68,36 +72,53 @@ public class CardService {
 	}
 
 	@Transactional
-	public void delete(CardModel card) {
-		cardReposytory.delete(card);
-	}
-
-	public Optional<CardModel> findById(Long id) {
-		return cardReposytory.findById(id);
-	}
-
-
-	@Transactional
-	public Set<CardModel> getAllCardsDeUmaAccountById(Long id) {
-
+	public Set<CardModel> getAllCardsToAccountById(Long id) {
 		AccountModel accountModel;
-
+		// Verifica se existe conta no banco de dados com o id passado
 		try {
 			accountModel = getAccountModelById(id);
 		} catch (Exception e) {
-			throw new RuntimeException("Não há contas cadastradas com este id");
+			throw new RuntimeException("Account not found by id.");
 		}
-
+		// Seta cards da account passada em uma lista de cards
 		Set<CardModel> cards = accountModel.getCard();
-
 		if (cards.isEmpty())
-			throw new RuntimeException("Não há cartões cadastrados para esta conta");
-
+			throw new RuntimeException("Card not found by account.");
 		return cards;
 	}
 
-	public CardModel save(CardModel cardModel) {
-		return cardReposytory.save(cardModel);
+	@Transactional
+	public CardModel updateCard(Long id, CardRequestDto cardRequestDto) {
+
+		// Verifica se existe card com o id passado no banco de dados
+		Optional<CardModel> cardModelOptional = cardReposytory.findById(id);
+		cardModelOptional.orElseThrow(() -> new RuntimeException("Card not found."));
+		
+		//Não é possivel alterar o number e nem o typeCard(regra de negócio)
+		//Atualiza os campos da card existente
+		cardModelOptional.get().setNameCard(cardRequestDto.getNameCard());
+		cardModelOptional.get().setDigitCode(cardRequestDto.getDigitCode());
+		cardModelOptional.get().setFlag(cardRequestDto.getFlag());
+		cardModelOptional.get().setLimitBalance(cardRequestDto.getLimitBalance());
+//		cardModelOptional.get().setTypeCard(cardRequestDto.getTypeCard());
+//		cardModelOptional.get().setNumber(cardRequestDto.getNumber());
+		
+		//Salva o card no banco de dados
+		cardReposytory.save(cardModelOptional.get());
+				
+		return cardModelOptional.get();
+
+	}
+
+	@Transactional
+	public Boolean deleteCard(Long id) {
+
+		// Verifica se existe card com o id passado no banco de dados
+		Optional<CardModel> cardModelOptional = cardReposytory.findById(id);
+		cardModelOptional.orElseThrow(() -> new RuntimeException("Card not found."));
+		// Caso exista, o card é deletado
+		cardReposytory.delete(cardModelOptional.get());
+		return true;
 	}
 
 	// Converters
@@ -114,7 +135,7 @@ public class CardService {
 
 		return cardResponseDto;
 	}
-	
+
 	// Coverte response DTO em um card
 
 	private CardModel convertDtoToModel(CardRequestDto cardRequestDto) {
@@ -126,7 +147,7 @@ public class CardService {
 		cardModel.setDigitCode(cardRequestDto.getDigitCode());
 		cardModel.setLimitBalance(cardRequestDto.getLimitBalance());
 		cardModel.setTypeCard(cardRequestDto.getTypeCard());
-		
+
 		return cardModel;
 	}
 

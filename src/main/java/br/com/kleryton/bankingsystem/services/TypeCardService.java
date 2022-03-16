@@ -20,7 +20,7 @@ public class TypeCardService {
 	@Autowired
 	TypeCardRepository typeCardRepository;
 
-	// C- createTypeCard
+	//CreateTypeCard
 	@Transactional
 	public TypeCardResponseDto createTypeCard(TypeCardRequestDto typeCardRequestDto) {
 
@@ -38,7 +38,7 @@ public class TypeCardService {
 		return convertModelToDTO(typeCardModelPersisted);
 	}
 
-	// R - Read All com List
+	//Read All com List
 	@Transactional
 	public List<TypeCardResponseDto> getAll() {
 
@@ -49,7 +49,7 @@ public class TypeCardService {
 		return ListTypeCards;
 	}
 
-	// R - Read One by Id
+	//Read One by Id
 	@Transactional
 	public TypeCardResponseDto getById(Long id) {
 
@@ -60,7 +60,7 @@ public class TypeCardService {
 		return convertModelToDTO(typeCardModelOptional.get());
 	}
 
-	// U - Update by Name
+	//Update by Name
 	@Transactional
 	public TypeCardResponseDto updateByName(String name, TypeCardRequestDto typeCardRequestDto) {
 
@@ -73,7 +73,7 @@ public class TypeCardService {
 		return convertModelToDTO(typeCardRepository.save(typeCarModelOptional.get()));
 	}
 
-	// D - Delete By Name
+	//Delete By Name
 	@Transactional
 	public void deleteByName(String name) {
 
