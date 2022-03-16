@@ -60,11 +60,10 @@ spring.jpa.show-sql=true
 
 ### Autor
 ---
-
- <img style="border-radius: 50%;" src="https://avatars3.githubusercontent.com/u/380327?s=460&u=61b426b901b8fe02e12019b1fdb67bf0072d4f00&v=4" width="100px;" alt=""/>
+<a href="https://github.com/klerytondev/">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/klerytondev" width="100px;" alt=""/>
  <br />
  <sub><b>Kleryton Souza</b></sub></a> <a>🚀</a>
-
 
 made by Kleryton de Souza 👋🏽 Entre em contato!
 
