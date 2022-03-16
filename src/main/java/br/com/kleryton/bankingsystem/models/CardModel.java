@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;
 
 @Entity
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "TB_CARD")
 
 public class CardModel implements Serializable {

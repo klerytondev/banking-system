@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.kleryton.bankingsystem.models.AccountModel;
 import br.com.kleryton.bankingsystem.models.CardModel;
 import br.com.kleryton.bankingsystem.requestDto.CardRequestDto;
-import br.com.kleryton.bankingsystem.responseDto.AccountResponseDto;
 import br.com.kleryton.bankingsystem.responseDto.CardResponseDto;
 import br.com.kleryton.bankingsystem.services.AccountService;
 import br.com.kleryton.bankingsystem.services.CardService;

@@ -104,6 +104,7 @@ public class CardService {
 
 	// Coverte um card em uma response DTO
 
+	@SuppressWarnings("unused")
 	private CardResponseDto convertModelToDTO(CardModel cardModel) {
 
 		CardResponseDto cardResponseDto = new CardResponseDto();
