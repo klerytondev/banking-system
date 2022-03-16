@@ -49,8 +49,8 @@ spring.jpa.show-sql=true
 ### funcionalidades
 - [x] Gerenciamento de banco
 - [ ] Gerenciamento de accounts
-- [ ] Gerenciamento de cards
-- [ ] Gerenciamento de typeCards
+- [x] Gerenciamento de cards
+- [x] Gerenciamento de typeCards
 - [ ] Validações
 - [ ] Documentação Swagger
 - [ ] Tratamento de exceções
