@@ -10,8 +10,7 @@ API Restful genérica que realiza alguns serviços bancários.
 # Documentação
 *  A documentação da API foi gerada com Swagger e está disponível em http://localhost:8080/
 
-### Pré-requisitos
-
+# Pré-requisitos
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [JDK11](https://www.oracle.com/java/technologies/downloads/#java11), [MAVEN 3](https://maven.apache.org/index.html) e [MYSQL](https://www.mysql.com/downloads/). 
 Além disto é bom ter um editor para trabalhar com o código como [Spring Tools](https://spring.io/tools)
@@ -48,7 +47,6 @@ spring.jpa.show-sql=true
 6. Swagger 
 
 ### funcionalidades
-
 - [x] Gerenciamento de banco
 - [ ] Gerenciamento de accounts
 - [ ] Gerenciamento de cards
@@ -57,6 +55,11 @@ spring.jpa.show-sql=true
 - [ ] Documentação Swagger
 - [ ] Tratamento de exceções
 - [ ] Deploy project on AWS
+
+### Status do Projeto
+<h4 align="left"> 
+	🚧  React Select 🚀 Em construção...  🚧
+</h4>
 
 ### Autor
 ---
