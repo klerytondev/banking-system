@@ -47,6 +47,11 @@ spring.jpa.show-sql=true
 5. JWT
 6. Swagger 
 
+## Status do Projeto
+<h4 align="left"> 
+	🚧  React Select 🚀 Em construção...  🚧
+</h4>
+
 ### funcionalidades
 
 - [x] Gerenciamento de banco
