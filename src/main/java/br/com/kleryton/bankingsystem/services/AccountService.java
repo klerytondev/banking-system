@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.kleryton.bankingsystem.models.AccountModel;
@@ -20,62 +21,104 @@ public class AccountService {
 
 	@Autowired
 	AccountRepository accountRepository;
-	
+
 	@Autowired
 	CardReposytory cardReposytory;
 
 	@Transactional
-	public AccountModel create(AccountModel account) {
-		return accountRepository.save(account);
+	// Create account
+	public AccountModel create(AccountRequestDto accountRequestDto) {
+
+		AccountModel accountModel = convertDtoToModel(accountRequestDto);
+
+		// TODO verificar possibilidade de separar por responsabilidades as exceções
+		// Verifica se accountCode ou RegisteId já está em uso no banco
+		try {
+			accountRepository.save(accountModel);
+		} catch (Exception e) {
+			throw new DataIntegrityViolationException("accoundCode or RegisterId is already in use!");
+		}
+		return accountModel;
 	}
 
+	// Read All
+	@Transactional
 	public List<AccountModel> findAll() {
-		
+
+		// Verifica se existe contas no banco, caso contrario retorna exception
+		if (accountRepository.findAll().isEmpty()) {
+			throw new RuntimeException("accoundCode or RegisterId is already in use!");
+		}
+		// Salva accounts existentes no banco de dados em uma lista de accounts
 		List<AccountModel> accountModelList = new ArrayList<>();
 		for (AccountModel accountModel : accountRepository.findAll()) {
 			accountModelList.add(accountModel);
 		}
 		return accountModelList;
 	}
-
+	
+	// Read One by Id
+	@Transactional
 	public Optional<AccountModel> findById(Long id) {
+
+		// Verifica se a account existe no banco
+		Optional<AccountModel> accountOptional = accountRepository.findById(id);
+		accountOptional.orElseThrow(() -> new RuntimeException("Account not found."));
+
 		return accountRepository.findById(id);
 	}
 
+	// Delete One by id
 	@Transactional
-	public void delete(AccountModel account) {
-		accountRepository.delete(account);
-	}
-
-	public boolean existsByRegisterId(String register_id) {
-		return accountRepository.existsByRegisterId(register_id);
-	}
-	
-	// Converters
-
-		// Coverte uma account em uma response DTO
-
-		public AccountResponseDto convertModelToDTO(AccountModel accountModel) {
-
-			AccountResponseDto accountResponseDto = new AccountResponseDto(accountModel);
-			accountModel.setCard(accountModel.getCard());
-			
-			return accountResponseDto;
+	public String delete(Long id) {
+		
+		Optional<AccountModel> accountModelOptional = accountRepository.findById(id);
+		
+		//Verifica se account existe
+		if (!accountModelOptional.isPresent()){
+			throw new RuntimeException("Account not found.");
+		} 
+		//Só é possivel excluir uma account se não existir nenhuma card associado a account
+		//Verifica se existe uma card associado a uma account
+		else if(!(accountModelOptional.get().getCard() == null || accountModelOptional.get().getCard().isEmpty())){
+			throw new RuntimeException("The account has cards. Unable to delete!");
 		}
 		
-		// Coverte um response DTO em account
+		accountRepository.deleteById(id);
+		return "Account deleted successfully.";
+	}
+	
+	//TODO Verificar a necessidade
+//	@Transactional
+//	public boolean existsByRegisterId(String register_id) {
+//		return accountRepository.existsByRegisterId(register_id);
+//	}
 
-		public AccountModel convertDtoToModel(AccountRequestDto accountRequestDto) {
+	// Converters
 
-			AccountModel accountModel = new AccountModel();
-			accountModel.setNameOwner(accountRequestDto.getNameOwner());
-			accountModel.setAgencyCode(accountModel.getAgencyCode());
-			accountModel.setAccountCode(accountRequestDto.getAccountCode());
-			accountModel.setVerificationDigital(accountRequestDto.getVerificationDigital());
-			accountModel.setRegisterId(accountRequestDto.getRegisterId());
-			accountModel.setCard(accountRequestDto.getCardModel());
-			
-			return accountModel;
-		}
+	// Coverte uma account em uma response DTO
+
+	public AccountResponseDto convertModelToDTO(AccountModel accountModel) {
+
+		AccountResponseDto accountResponseDto = new AccountResponseDto(accountModel);
+		accountModel.setCard(accountModel.getCard());
+
+		return accountResponseDto;
+	}
+
+	// Coverte um response DTO em account
+
+	public AccountModel convertDtoToModel(AccountRequestDto accountRequestDto) {
+
+		AccountModel accountModel = new AccountModel();
+		accountModel.setNameOwner(accountRequestDto.getNameOwner());
+		accountModel.setAgencyCode(accountRequestDto.getAgencyCode());
+		accountModel.setAccountCode(accountRequestDto.getAccountCode());
+		accountModel.setVerificationDigital(accountRequestDto.getVerificationDigital());
+		accountModel.setRegisterId(accountRequestDto.getRegisterId());
+		accountModel.setCard(accountRequestDto.getCardModel());
+
+		return accountModel;
+	}
 
 }

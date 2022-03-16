@@ -27,6 +27,8 @@ public class ApplicationControllerAdvice {
 		return new ApiErrors(messages);
 	}
 	
+	//Não é permitido a entrada de NumberCards duplicados
+	//Exception para entrada duplicada de NumberCard
 	@ResponseStatus(HttpStatus.CONFLICT)
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<StandartError> StatusError(DataIntegrityViolationException e, HttpServletRequest request){
@@ -35,7 +37,7 @@ public class ApplicationControllerAdvice {
 		err.setTimestamp(Instant.now());;
 		err.setStatus(status.value());
 		err.setError("Duplicate entry");
-		err.setMessage("Numero da conta em uso!");
+		err.setMessage("NumberCard in use!");
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}

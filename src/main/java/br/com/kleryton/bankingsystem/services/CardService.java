@@ -32,6 +32,7 @@ public class CardService {
 	@Autowired
 	TypeCardRepository typeCardRepository;
 
+	//Create Card em uma account
 	@Transactional
 	public AccountModel createCardAccount(CardRequestDto cardRequestDto, Long id) {
 
@@ -61,16 +62,7 @@ public class CardService {
 		return accountModelPersist;
 	}
 
-	@Transactional
-	private AccountModel getAccountModelById(Long id) {
-		
-		//Verifica se existe uma account no banco de dados 
-		Optional<AccountModel> accountOptional = accountRepository.findById(id);
-		accountOptional.orElseThrow(() -> new RuntimeException("Account not found."));
-
-		return accountOptional.get();
-	}
-
+	//Read All
 	@Transactional
 	public Set<CardModel> getAllCardsToAccountById(Long id) {
 		AccountModel accountModel;
@@ -87,6 +79,7 @@ public class CardService {
 		return cards;
 	}
 
+	//Update By id
 	@Transactional
 	public CardModel updateCard(Long id, CardRequestDto cardRequestDto) {
 
@@ -107,9 +100,9 @@ public class CardService {
 		cardReposytory.save(cardModelOptional.get());
 				
 		return cardModelOptional.get();
-
 	}
-
+	
+	//Delete One By id
 	@Transactional
 	public Boolean deleteCard(Long id) {
 
@@ -119,6 +112,15 @@ public class CardService {
 		// Caso exista, o card é deletado
 		cardReposytory.delete(cardModelOptional.get());
 		return true;
+	}
+	
+	@Transactional
+	private AccountModel getAccountModelById(Long id) {
+		
+		//Verifica se existe uma account no banco de dados 
+		Optional<AccountModel> accountOptional = accountRepository.findById(id);
+		accountOptional.orElseThrow(() -> new RuntimeException("Account not found."));
+		return accountOptional.get();
 	}
 
 	// Converters

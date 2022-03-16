@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.kleryton.bankingsystem.models.AccountModel;
 import br.com.kleryton.bankingsystem.models.CardModel;
 import br.com.kleryton.bankingsystem.requestDto.CardRequestDto;
-import br.com.kleryton.bankingsystem.responseDto.CardResponseDto;
 import br.com.kleryton.bankingsystem.services.AccountService;
 import br.com.kleryton.bankingsystem.services.CardService;
 
@@ -58,7 +57,6 @@ public class CardController {
 			return ResponseEntity.status(HttpStatus.OK).body("Card deleted successfully");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body("Could not delete card");
-
 	}
 	
 	//Update By id
