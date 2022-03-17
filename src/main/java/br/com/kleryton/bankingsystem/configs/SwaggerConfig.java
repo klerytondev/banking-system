@@ -28,8 +28,8 @@ public class SwaggerConfig {
 
 	    private ApiInfo showMetadata() {
 	        return new ApiInfoBuilder()
-	                .title("Bank REST API")
-	                .description("BAnking System")
+	                .title("Banking System - API Restfull")
+	                .description("Banking System")
 	                .version("1.0")
 	                .license("Apache License Version 2.0")
 	                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")

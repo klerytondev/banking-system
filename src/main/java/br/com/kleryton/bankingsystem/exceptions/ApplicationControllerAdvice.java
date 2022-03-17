@@ -1,14 +1,9 @@
 package br.com.kleryton.bankingsystem.exceptions;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,18 +24,18 @@ public class ApplicationControllerAdvice {
 	
 	//Não é permitido a entrada de NumberCards duplicados
 	//Exception para entrada duplicada de NumberCard
-	@ResponseStatus(HttpStatus.CONFLICT)
-	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<StandartError> StatusError(DataIntegrityViolationException e, HttpServletRequest request){
-		StandartError err = new StandartError();
-		HttpStatus status = HttpStatus.CONFLICT;
-		err.setTimestamp(Instant.now());;
-		err.setStatus(status.value());
-		err.setError("Duplicate entry");
-		err.setMessage("NumberCard in use!");
-		err.setPath(request.getRequestURI());
-		return ResponseEntity.status(status).body(err);
-	}
+//	@ResponseStatus(HttpStatus.CONFLICT)
+//	@ExceptionHandler(DataIntegrityViolationException.class)
+//	public ResponseEntity<StandartError> StatusError(DataIntegrityViolationException e, HttpServletRequest request){
+//		StandartError err = new StandartError();
+//		HttpStatus status = HttpStatus.CONFLICT;
+//		err.setTimestamp(Instant.now());;
+//		err.setStatus(status.value());
+//		err.setError("Duplicate entry");
+//		err.setMessage("NumberCard in use!");
+//		err.setPath(request.getRequestURI());
+//		return ResponseEntity.status(status).body(err);
+//	}
 
 //	@ExceptionHandler(HttpMessageNotReadableException.class)
 //	public ResponseEntity<ErroPadrao> StatusError(HttpMessageNotReadableException e, HttpServletRequest request){
