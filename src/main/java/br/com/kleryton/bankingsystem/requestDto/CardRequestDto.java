@@ -32,7 +32,6 @@ public class CardRequestDto {
 	private String digitCode;
 
 	@PositiveOrZero(message = "{campo.positiveorzero.postivo}")
-	@NotNull(message= "{campo.limitBalance.nulo}")
 	private double limitBalance;
 
 	public CardRequestDto() {

@@ -12,7 +12,6 @@ public enum CardFlag {
 	private CardFlag(String flag) {
 		this.flag = flag;
 	}
-
 	public String getFlag() {
 		return flag;
 	}
