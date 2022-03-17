@@ -21,7 +21,7 @@ import br.com.kleryton.bankingsystem.responseDto.TypeCardResponseDto;
 import br.com.kleryton.bankingsystem.services.TypeCardService;
 
 @RestController
-@RequestMapping("/system-banking/type_card")
+@RequestMapping(value="/v1/system-banking")
 public class TypeCardController {
 
 	@Autowired
@@ -35,20 +35,20 @@ public class TypeCardController {
 	}
 
 	//Read All
-	@GetMapping("/all")
+	@GetMapping("/type_card/all")
 	public ResponseEntity<List<TypeCardResponseDto>> getAll() {
 		List<TypeCardResponseDto> typeCardResponseDtos = typeCardService.getAll();
 		return ResponseEntity.ok().body(typeCardResponseDtos);
 	}
 
 	//Read One by Id
-	@GetMapping("/{idCard}")
+	@GetMapping("/type_card/{idCard}")
 	public ResponseEntity<TypeCardResponseDto> getById(@PathVariable Long idCard) {
 		return ResponseEntity.ok(typeCardService.getById(idCard));
 	}
 
 	//Update By Name
-	@PutMapping("/update")
+	@PutMapping("/type_card/update")
 	public ResponseEntity<TypeCardResponseDto> updateByName(@PathParam("name") String name,
 			@RequestBody TypeCardRequestDto requestDTO) {
 		TypeCardResponseDto typeCardResponseDto = typeCardService.updateByName(name, requestDTO);
@@ -56,7 +56,7 @@ public class TypeCardController {
 	}
 
 	//Delete One by Name
-	@DeleteMapping("/delete")
+	@DeleteMapping("/type_card/delete")
 	public ResponseEntity<String> deleteByName(@PathParam("name") String name) {
 		typeCardService.deleteByName(name);
 		return ResponseEntity.ok().body(name + " successfully deleted");

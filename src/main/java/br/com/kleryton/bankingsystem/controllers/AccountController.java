@@ -26,40 +26,40 @@ import br.com.kleryton.bankingsystem.services.AccountService;
 //TODO Refatorar
 
 @RestController
-@RequestMapping("/system-banking/account")
+@RequestMapping(value="/v1/system-banking")
 public class AccountController {
 
 	@Autowired
 	AccountService accountService;
 
 	// SaveAccount
-	@PostMapping("/add")
+	@PostMapping("/account/add")
 	public ResponseEntity<Object> saveAccount(@RequestBody @Valid AccountRequestDto accountRequestDto) {
 		AccountModel accountModel = accountService.create(accountRequestDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountModel);
 	}
 
 	// Read All
-	@GetMapping("/all")
+	@GetMapping("/account/all")
 	public ResponseEntity<List<AccountModel>> getAllAccountModel() {
 		return ResponseEntity.status(HttpStatus.OK).body(accountService.findAll());
 	}
 
 	// Read One by Id
-	@GetMapping("/{id}")
+	@GetMapping("/account/{id}")
 	public ResponseEntity<Object> getOneAccountModel(@PathVariable(value = "id") Long id) {
 		Optional<AccountModel> accountModelOptional = accountService.findById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(new AccountRequestDto(accountModelOptional.get()));
 	}
 
 	// Delete One by id
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/account/{id}")
 	public ResponseEntity<Object> deleteAccountModel(@PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(accountService.delete(id));
 	}
 
 	// Update by id
-	@PutMapping("/update")
+	@PutMapping("/account/update")
 	public ResponseEntity<AccountResponseDto> updateAccountModel(@PathParam("id") Long id,
 			@RequestBody @Valid AccountRequestDto accountRequestDto) {
 		AccountResponseDto accountResponseDto = accountService.updateAcoount(id, accountRequestDto);

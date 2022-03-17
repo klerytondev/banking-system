@@ -3,7 +3,6 @@ package br.com.kleryton.bankingsystem.requestDto;
 import java.util.Objects;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
 
@@ -20,7 +19,7 @@ public class CardRequestDto {
 	@NotEmpty(message = "{campo.namecard.nulo}")
 	private String nameCard;
 
-//	@Pattern(regexp = "MASTERCARD|VISA|ELO")
+//TODO verificar validação
 	private CardFlag flag;
 	
 	private TypeCardModel typeCard;
