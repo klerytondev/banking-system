@@ -29,11 +29,8 @@ spring.datasource.url=jdbc:mysql://localhost:3306/BD_banking?createDatabaseIfNot
 spring.datasource.username=root
 spring.datasource.password=root
 
-# Dialeto SQL melhorar o SQL gerado pelo Hibernate
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
-
-# Hibernate ddl auto (create, create-drop, validate, update)
-spring.jpa.hibernate.ddl-auto=none
+# Hibernate ddl auto (update)
+spring.jpa.hibernate.ddl-auto=update
 
 spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.show-sql=true
