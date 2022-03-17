@@ -3,6 +3,7 @@ package br.com.kleryton.bankingsystem.exceptions;
 import java.util.Arrays;
 import java.util.List;
 
+//Mostra os possíveis erros na hora das requisições
 public class ApiErrors {
 
 	private List<String> errors;
@@ -17,10 +18,6 @@ public class ApiErrors {
 
 	public List<String> getErrors() {
 		return errors;
-	}
-
-	public void setErrors(List<String> errors) {
-		this.errors = errors;
 	}
 
 }

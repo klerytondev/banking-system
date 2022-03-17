@@ -67,8 +67,38 @@ public class AccountService {
 
 		return accountRepository.findById(id);
 	}
+	
+	// Update by id
+		@Transactional
+	public AccountResponseDto updateAcoount(Long id, AccountRequestDto accountRequestDto) {
+			
+			// Busca no banco de dados se existe account com o id passado 
+			Optional<AccountModel> accountModelOptional = accountRepository.findById(id);
+			accountModelOptional.orElseThrow(() -> new RuntimeException("Account not found."));
+			
+			//Atualiza os campos da account existentes
+			
+			accountModelOptional.get().setNameOwner(accountRequestDto.getNameOwner());
+			accountModelOptional.get().setAgencyCode(accountRequestDto.getAgencyCode());
+			accountModelOptional.get().setAccountCode(accountRequestDto.getAccountCode());
+			accountModelOptional.get().setVerificationDigital(accountRequestDto.getVerificationDigital());
+			accountModelOptional.get().setRegisterId(accountRequestDto.getRegisterId());
+			
+			// TODO verificar possibilidade de separar por responsabilidades as exceções
+			// Verifica se accountCode ou RegisteId já está em uso no banco
+			try {
+				accountRepository.save(accountModelOptional.get());
+			} catch (Exception e) {
+				throw new DataIntegrityViolationException("accoundCode or RegisterId is already in use!");
+			}
+			
+			AccountResponseDto accountResponseDto = convertModelToDTO(accountModelOptional.get());
+			
+			return accountResponseDto;
+			
+	}
 
-	// Delete One by id
+	// Delete by id
 	@Transactional
 	public String delete(Long id) {
 		
@@ -97,7 +127,6 @@ public class AccountService {
 	// Converters
 
 	// Coverte uma account em uma response DTO
-
 	public AccountResponseDto convertModelToDTO(AccountModel accountModel) {
 
 		AccountResponseDto accountResponseDto = new AccountResponseDto(accountModel);
@@ -107,7 +136,6 @@ public class AccountService {
 	}
 
 	// Coverte um response DTO em account
-
 	public AccountModel convertDtoToModel(AccountRequestDto accountRequestDto) {
 
 		AccountModel accountModel = new AccountModel();
@@ -120,5 +148,6 @@ public class AccountService {
 
 		return accountModel;
 	}
+
 
 }

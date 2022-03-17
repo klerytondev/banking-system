@@ -29,7 +29,7 @@ public class AccountRequestDto {
 	@Length(max = 1, message = "{campo.verificationDigital.digitos}")
 	private String verificationDigital;
 
-	@CPF(message = "{campo.accountcpf.invalido}")
+	@CPF(message = "{campo.accountcpf.nulo}")
 	private String registerId;
 	
 	private Set<CardModel> cardModel;

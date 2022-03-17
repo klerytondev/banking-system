@@ -83,12 +83,12 @@ public class CardService {
 	@Transactional
 	public CardModel updateCard(Long id, CardRequestDto cardRequestDto) {
 
-		// Verifica se existe card com o id passado no banco de dados
+		// Busca no banco de dados se existe card com o id passado 
 		Optional<CardModel> cardModelOptional = cardReposytory.findById(id);
 		cardModelOptional.orElseThrow(() -> new RuntimeException("Card not found."));
 		
 		//Não é possivel alterar o number e nem o typeCard(regra de negócio)
-		//Atualiza os campos da card existente
+		//Atualiza os campos da card existentes
 		cardModelOptional.get().setNameCard(cardRequestDto.getNameCard());
 		cardModelOptional.get().setDigitCode(cardRequestDto.getDigitCode());
 		cardModelOptional.get().setFlag(cardRequestDto.getFlag());
@@ -126,7 +126,6 @@ public class CardService {
 	// Converters
 
 	// Coverte um card em uma response DTO
-
 	@SuppressWarnings("unused")
 	private CardResponseDto convertModelToDTO(CardModel cardModel) {
 
@@ -139,7 +138,6 @@ public class CardService {
 	}
 
 	// Coverte response DTO em um card
-
 	private CardModel convertDtoToModel(CardRequestDto cardRequestDto) {
 
 		CardModel cardModel = new CardModel();

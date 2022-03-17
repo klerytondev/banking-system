@@ -1,8 +1,5 @@
 package br.com.kleryton.bankingsystem.responseDto;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import br.com.kleryton.bankingsystem.models.CardModel;
 import br.com.kleryton.bankingsystem.models.TypeCardModel;
 import br.com.kleryton.bankingsystem.models.enums.CardFlag;

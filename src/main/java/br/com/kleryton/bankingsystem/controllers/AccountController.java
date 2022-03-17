@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,12 +13,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kleryton.bankingsystem.models.AccountModel;
 import br.com.kleryton.bankingsystem.requestDto.AccountRequestDto;
+import br.com.kleryton.bankingsystem.responseDto.AccountResponseDto;
 import br.com.kleryton.bankingsystem.services.AccountService;
 
 //TODO Refatorar
@@ -52,22 +55,15 @@ public class AccountController {
 	// Delete One by id
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteAccountModel(@PathVariable Long id) {
-	return ResponseEntity.status(HttpStatus.OK).body(accountService.delete(id));
+		return ResponseEntity.status(HttpStatus.OK).body(accountService.delete(id));
 	}
 
-	//Update One by id
-//	@PutMapping("/{id}")
-//	public ResponseEntity<Object> updateAccountModel(@PathVariable(value = "id") Long id,
-//			@RequestBody @Valid AccountRequestDto accountDto) {
-//		Optional<AccountModel> accountModelOptional = accountService.findById(id);
-//		if (!accountModelOptional.isPresent()) {
-//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found.");
-//		}
-//		var accountModel = new AccountModel();
-//		BeanUtils.copyProperties(accountDto, accountModel);
-//		accountModel.setId(accountModelOptional.get().getId());
-//		accountModel.setCard(accountModelOptional.get().getCard());
-//		return ResponseEntity.status(HttpStatus.OK).body(new AccountRequestDto(accountService.create(accountModel)));
-//	}
+	// Update by id
+	@PutMapping("/update")
+	public ResponseEntity<AccountResponseDto> updateAccountModel(@PathParam("id") Long id,
+			@RequestBody @Valid AccountRequestDto accountRequestDto) {
+		AccountResponseDto accountResponseDto = accountService.updateAcoount(id, accountRequestDto);
+		return ResponseEntity.status(HttpStatus.OK).body(accountResponseDto);
+	}
 
 }
