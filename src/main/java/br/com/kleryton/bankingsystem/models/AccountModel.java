@@ -16,11 +16,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-
 @Table(name = "TB_ACCOUNT")
 public class AccountModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	//TODO Verificar autoIncrement
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

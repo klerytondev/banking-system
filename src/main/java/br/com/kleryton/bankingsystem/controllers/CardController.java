@@ -22,6 +22,7 @@ import br.com.kleryton.bankingsystem.models.CardModel;
 import br.com.kleryton.bankingsystem.requestDto.CardRequestDto;
 import br.com.kleryton.bankingsystem.services.AccountService;
 import br.com.kleryton.bankingsystem.services.CardService;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value="/v1/system-banking")
@@ -35,6 +36,7 @@ public class CardController {
 	CardService cardService;
 
 	//Create Card
+	@ApiOperation(value="Salva um novo cartão no banco de dados")
 	@PostMapping("/cards/{idAccount}")
 	public ResponseEntity<AccountModel> createCard(@RequestBody @Valid CardRequestDto cardRequestDto,
 			@PathVariable Long idAccount) {
@@ -44,6 +46,7 @@ public class CardController {
 //TODO corrigir erro
 
 	//Read All
+	@ApiOperation(value="Retorna todos os cartões salvos em uma conta")
 	@GetMapping("/cards/{idAccount}")
 	public ResponseEntity<Set<CardModel>> getAllCardsToAccount(@PathVariable Long idAccount) {
 		Set<CardModel> cardModels = cardService.getAllCardsToAccountById(idAccount);
@@ -51,6 +54,7 @@ public class CardController {
 	}
 	
 	//Delete One By id
+	@ApiOperation(value="Deleta um cartão de uma conta de acordo com o id(cartão) passado")
 	@DeleteMapping("/cards/delete")
 	public ResponseEntity<Object> DeletecardModel(@PathParam("id") Long id) {
 		Boolean cardDelete = cardService.deleteCard(id);
@@ -61,11 +65,11 @@ public class CardController {
 	}
 	
 	//Update By id
+	@ApiOperation(value="Atualiza um cartão de uma conta de acordo com o id(cartão) passado")
 	@PutMapping("/cards/update")
 	public ResponseEntity<CardModel> updateCardModel(@PathParam("id") Long id,
 			@RequestBody @Valid CardRequestDto cardRequestDto) {
 		CardModel cardModel = cardService.updateCard(id, cardRequestDto);
-
 		return ResponseEntity.status(HttpStatus.OK).body(cardModel);
 	}
 

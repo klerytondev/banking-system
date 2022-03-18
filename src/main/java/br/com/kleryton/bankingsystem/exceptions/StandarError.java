@@ -3,8 +3,7 @@ package br.com.kleryton.bankingsystem.exceptions;
 import java.io.Serializable;
 import java.time.Instant;
 
-public class StandartError implements Serializable {
-
+public class StandarError implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Instant timestamp;
@@ -13,11 +12,10 @@ public class StandartError implements Serializable {
 	private String message;
 	private String path;
 	
-	public StandartError() {
+	public StandarError() {
 	}
 
-	public StandartError(Instant timestamp, Integer status, String error, String message, String path) {
-		super();
+	public StandarError(Instant timestamp, Integer status, String error, String message, String path) {
 		this.timestamp = timestamp;
 		this.status = status;
 		this.error = error;

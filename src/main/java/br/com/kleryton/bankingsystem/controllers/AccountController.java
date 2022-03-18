@@ -53,7 +53,7 @@ public class AccountController {
 	}
 
 	// Read One by Id
-	@ApiOperation(value="Retorna  uma conta no banco de dados de acordo com o id passado")
+	@ApiOperation(value="Retorna uma conta de acordo com o id passado")
 	@GetMapping("/account/{id}")
 	public ResponseEntity<Object> getOneAccountModel(@PathVariable(value = "id") Long id) {
 		Optional<AccountModel> accountModelOptional = accountService.findById(id);
@@ -61,14 +61,14 @@ public class AccountController {
 	}
 
 	// Delete One by id
-	@ApiOperation(value="Deleta uma conta no banco de dados de acordo com o id passado")
+	@ApiOperation(value="Deleta uma conta de acordo com o id passado")
 	@DeleteMapping("/account/{id}")
 	public ResponseEntity<Object> deleteAccountModel(@PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(accountService.delete(id));
 	}
 
 	// Update by id
-	@ApiOperation(value="Atualiza uma conta no banco de dados de acordo com o id passado")
+	@ApiOperation(value="Atualiza uma conta de acordo com o id passado")
 	@PutMapping("/account/update")
 	public ResponseEntity<AccountResponseDto> updateAccountModel(@PathParam("id") Long id,
 			@RequestBody @Valid AccountRequestDto accountRequestDto) {

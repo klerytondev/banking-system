@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.kleryton.bankingsystem.requestDto.TypeCardRequestDto;
 import br.com.kleryton.bankingsystem.responseDto.TypeCardResponseDto;
 import br.com.kleryton.bankingsystem.services.TypeCardService;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value="/v1/system-banking")
@@ -28,6 +29,7 @@ public class TypeCardController {
 	TypeCardService typeCardService;
 
 	//Create Type Card
+	@ApiOperation(value="Cria um novo tipo de cartão")
 	@PostMapping
 	public ResponseEntity<TypeCardResponseDto> createTypeCard(@RequestBody TypeCardRequestDto typeCardRequestDto) {
 		TypeCardResponseDto typeCardResponseDto = typeCardService.createTypeCard(typeCardRequestDto);
@@ -35,6 +37,7 @@ public class TypeCardController {
 	}
 
 	//Read All
+	@ApiOperation(value="Retorna todos os tipos de cartões salvos no banco")
 	@GetMapping("/type_card/all")
 	public ResponseEntity<List<TypeCardResponseDto>> getAll() {
 		List<TypeCardResponseDto> typeCardResponseDtos = typeCardService.getAll();
@@ -42,12 +45,14 @@ public class TypeCardController {
 	}
 
 	//Read One by Id
+	@ApiOperation(value="Retorna um tipo de cartão de acordo com o id passado")
 	@GetMapping("/type_card/{idCard}")
 	public ResponseEntity<TypeCardResponseDto> getById(@PathVariable Long idCard) {
 		return ResponseEntity.ok(typeCardService.getById(idCard));
 	}
 
 	//Update By Name
+	@ApiOperation(value="Atualiza um tipo de cartão de acordo com o id passado")
 	@PutMapping("/type_card/update")
 	public ResponseEntity<TypeCardResponseDto> updateByName(@PathParam("name") String name,
 			@RequestBody TypeCardRequestDto requestDTO) {
@@ -56,6 +61,7 @@ public class TypeCardController {
 	}
 
 	//Delete One by Name
+	@ApiOperation(value="Deleta um tipo de cartão de acordo com o id passado")
 	@DeleteMapping("/type_card/delete")
 	public ResponseEntity<String> deleteByName(@PathParam("name") String name) {
 		typeCardService.deleteByName(name);

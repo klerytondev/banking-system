@@ -1,6 +1,7 @@
 package br.com.kleryton.bankingsystem.configs;
 
 import org.springframework.context.annotation.Bean;
+
 import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -12,6 +13,8 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
+//Configuração para habilitar o Swagger na aplicação
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -33,7 +36,7 @@ public class SwaggerConfig {
 	                .version("1.0")
 	                .license("Apache License Version 2.0")
 	                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
-	                .contact(new Contact("Kleryton de Souza", "https://github.com/klerytondev/", "klerytondev@gmail.com"))
+	                .contact(new Contact("Kleryton de Souza", "https://github.com/kleryton.dev/", "klerytondev@gmail.com"))
 	                .build();
 	    }
 }
