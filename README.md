@@ -8,7 +8,7 @@ API Restful genérica que realiza alguns serviços bancários.
 4. Gerenciamento de typeCards (CRUD completo)
 
 # Documentação
-*  A documentação da API foi gerada com Swagger e está disponível em http://localhost:8080/
+*  A documentação da API foi gerada com Swagger e está disponível em http://localhost:8080/banco-api/swagger-ui.html
 
 # Pré-requisitos
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
@@ -49,7 +49,7 @@ spring.jpa.show-sql=true
 - [x] Gerenciamento de cards
 - [x] Gerenciamento de typeCards
 - [ ] Validações
-- [ ] Documentação Swagger
+- [X] Documentação Swagger
 - [ ] Tratamento de exceções
 - [ ] Deploy project on AWS
 
