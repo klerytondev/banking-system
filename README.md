@@ -49,7 +49,7 @@ spring.jpa.show-sql=true
 - [x] Gerenciamento de cards
 - [x] Gerenciamento de typeCards
 - [ ] Validações
-- [X] Documentação Swagger
+- [x] Documentação Swagger
 - [ ] Tratamento de exceções
 - [ ] Deploy project on AWS
 
