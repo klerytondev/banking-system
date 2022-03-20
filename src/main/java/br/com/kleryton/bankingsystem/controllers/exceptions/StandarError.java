@@ -1,4 +1,4 @@
-package br.com.kleryton.bankingsystem.exceptions;
+package br.com.kleryton.bankingsystem.controllers.exceptions;
 
 import java.io.Serializable;
 import java.time.Instant;

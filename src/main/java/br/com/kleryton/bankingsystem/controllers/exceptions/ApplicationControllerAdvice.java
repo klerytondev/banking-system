@@ -1,4 +1,4 @@
-package br.com.kleryton.bankingsystem.exceptions;
+package br.com.kleryton.bankingsystem.controllers.exceptions;
 
 import java.time.Instant;
 
@@ -23,7 +23,6 @@ public class ApplicationControllerAdvice {
 		StandarError err = new StandarError();
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		err.setTimestamp(Instant.now());
-		;
 		err.setStatus(status.value());
 		err.setError("Não foi possível encontrar o recurso solicitado!");
 		err.setMessage(e.getMessage());
@@ -54,7 +53,7 @@ public class ApplicationControllerAdvice {
 	@ExceptionHandler(InternalServerError.class)
 	public ResponseEntity<StandarError> dataIntegrity(InternalServerError e, HttpServletRequest request) {
 		StandarError err = new StandarError();
-		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+		HttpStatus status = HttpStatus.BAD_REQUEST;
 		err.setTimestamp(Instant.now());
 		err.setStatus(status.value());
 		err.setError("O servidor encontrou uma condição inesperada!");

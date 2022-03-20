@@ -31,11 +31,11 @@ public class AccountService {
 
 		AccountModel accountModel = convertDtoToModel(accountRequestDto);
 
-		// TODO verificar possibilidade de separar por responsabilidades as exceções
+		// TODO costomizar exception 
 		// Verifica se accountCode ou RegisteId já está em uso no banco
 		try {
 			accountRepository.save(accountModel);
-		} catch (Exception e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityViolationException("accoundCode or RegisterId is already in use!");
 		}
 		return accountModel;
