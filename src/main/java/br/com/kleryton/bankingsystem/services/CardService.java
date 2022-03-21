@@ -16,10 +16,13 @@ import br.com.kleryton.bankingsystem.repositories.CardReposytory;
 import br.com.kleryton.bankingsystem.repositories.TypeCardRepository;
 import br.com.kleryton.bankingsystem.requestDto.CardRequestDto;
 import br.com.kleryton.bankingsystem.responseDto.CardResponseDto;
+import br.com.kleryton.bankingsystem.services.exceptions.ObjetoNaoEncontradoException;
 
 @Service
 public class CardService {
 
+	
+	//TODO verificar necessidade de injeções
 	@Autowired
 	CardReposytory cardReposytory;
 
@@ -38,12 +41,12 @@ public class CardService {
 
 		// Verifica se a account existe no banco
 		Optional<AccountModel> accountOptional = accountRepository.findById(id);
-		accountOptional.orElseThrow(() -> new RuntimeException("Account not found."));
+		accountOptional.orElseThrow(() -> new ObjetoNaoEncontradoException("Account not found."));
 
 		// verificar se type Card existe no banco
 		Optional<TypeCardModel> typeCarModelOptional = typeCardRepository
 				.findByName(cardRequestDto.getTypeCard().getName());
-		typeCarModelOptional.orElseThrow(() -> new RuntimeException("Type Card not found."));
+		typeCarModelOptional.orElseThrow(() -> new ObjetoNaoEncontradoException("Type Card not found."));
 
 		// Seta o typeCard em um cardRequestDto
 		cardRequestDto.setTypeCard(typeCarModelOptional.get());
@@ -70,12 +73,12 @@ public class CardService {
 		try {
 			accountModel = getAccountModelById(id);
 		} catch (Exception e) {
-			throw new RuntimeException("Account not found by id.");
+			throw new ObjetoNaoEncontradoException("Account not found by id.");
 		}
 		// Seta cards da account passada em uma lista de cards
 		Set<CardModel> cards = accountModel.getCard();
 		if (cards.isEmpty())
-			throw new RuntimeException("Card not found by account.");
+			throw new ObjetoNaoEncontradoException("Card not found by account.");
 		return cards;
 	}
 
@@ -85,7 +88,7 @@ public class CardService {
 
 		// Busca no banco de dados se existe card com o id passado 
 		Optional<CardModel> cardModelOptional = cardReposytory.findById(id);
-		cardModelOptional.orElseThrow(() -> new RuntimeException("Card not found."));
+		cardModelOptional.orElseThrow(() -> new ObjetoNaoEncontradoException("Card not found."));
 		
 		//Não é possivel alterar o number e nem o typeCard(regra de negócio)
 		//Atualiza os campos da card existentes
@@ -119,7 +122,7 @@ public class CardService {
 		
 		//Verifica se existe uma account no banco de dados 
 		Optional<AccountModel> accountOptional = accountRepository.findById(id);
-		accountOptional.orElseThrow(() -> new RuntimeException("Account not found."));
+		accountOptional.orElseThrow(() -> new ObjetoNaoEncontradoException("Account not found."));
 		return accountOptional.get();
 	}
 

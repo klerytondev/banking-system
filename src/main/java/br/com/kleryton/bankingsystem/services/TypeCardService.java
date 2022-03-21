@@ -13,6 +13,8 @@ import br.com.kleryton.bankingsystem.models.TypeCardModel;
 import br.com.kleryton.bankingsystem.repositories.TypeCardRepository;
 import br.com.kleryton.bankingsystem.requestDto.TypeCardRequestDto;
 import br.com.kleryton.bankingsystem.responseDto.TypeCardResponseDto;
+import br.com.kleryton.bankingsystem.services.exceptions.ConflictDeDadosException;
+import br.com.kleryton.bankingsystem.services.exceptions.ObjetoNaoEncontradoException;
 
 @Service
 public class TypeCardService {
@@ -20,7 +22,7 @@ public class TypeCardService {
 	@Autowired
 	TypeCardRepository typeCardRepository;
 
-	//CreateTypeCard
+	// CreateTypeCard
 	@Transactional
 	public TypeCardResponseDto createTypeCard(TypeCardRequestDto typeCardRequestDto) {
 
@@ -30,15 +32,15 @@ public class TypeCardService {
 		// Verifica se já existe um typeCard no banco de dados antes de criar um novo
 		// tipo
 		if (typeCardModelOptional.isPresent()) {
-			throw new RuntimeException("Card type already exists.");
+			throw new ConflictDeDadosException("Card type already exists.");
 		}
-		
-		TypeCardModel typeCardModelPersisted = typeCardRepository.save(convertDtoToModel(typeCardRequestDto));
 
+		TypeCardModel typeCardModelPersisted = typeCardRepository.save(convertDtoToModel(typeCardRequestDto));
 		return convertModelToDTO(typeCardModelPersisted);
+
 	}
 
-	//Read All com List
+	// Read All com List
 	@Transactional
 	public List<TypeCardResponseDto> getAll() {
 
@@ -49,23 +51,23 @@ public class TypeCardService {
 		return ListTypeCards;
 	}
 
-	//Read One by Id
+	// Read One by Id
 	@Transactional
 	public TypeCardResponseDto getById(Long id) {
 
 		// Verifica se existe um typeCard no banco de acordo com o id passado
 		Optional<TypeCardModel> typeCardModelOptional = typeCardRepository.findById(id);
-		typeCardModelOptional.orElseThrow(() -> new RuntimeException("Type Card not found."));
+		typeCardModelOptional.orElseThrow(() -> new ObjetoNaoEncontradoException("Type Card not found."));
 
 		return convertModelToDTO(typeCardModelOptional.get());
 	}
 
-	//Update by Name
+	// Update by Name
 	@Transactional
 	public TypeCardResponseDto updateByName(String name, TypeCardRequestDto typeCardRequestDto) {
 
 		Optional<TypeCardModel> typeCarModelOptional = typeCardRepository.findByName(name);
-		typeCarModelOptional.orElseThrow(() -> new RuntimeException("Type Card not found"));
+		typeCarModelOptional.orElseThrow(() -> new ObjetoNaoEncontradoException("Type Card not found"));
 
 		// TODO validação pra nao deixar entrar duplicado
 		// java.sql.SQLIntegrityConstraintViolationException
@@ -73,12 +75,12 @@ public class TypeCardService {
 		return convertModelToDTO(typeCardRepository.save(typeCarModelOptional.get()));
 	}
 
-	//Delete By Name
+	// Delete By Name
 	@Transactional
 	public void deleteByName(String name) {
 
 		Optional<TypeCardModel> typeCardModel = typeCardRepository.findByName(name);
-		typeCardModel.orElseThrow(() -> new RuntimeException("Type Card not found"));
+		typeCardModel.orElseThrow(() -> new ObjetoNaoEncontradoException("Type Card not found"));
 
 		typeCardRepository.deleteById(typeCardModel.get().getId());
 
@@ -98,7 +100,7 @@ public class TypeCardService {
 	}
 
 	// Coverte response DTO em um typeCard
-	
+
 	private TypeCardModel convertDtoToModel(TypeCardRequestDto typeCardRequestDto) {
 
 		TypeCardModel typeCardModel = new TypeCardModel();

@@ -15,6 +15,7 @@ import br.com.kleryton.bankingsystem.repositories.AccountRepository;
 import br.com.kleryton.bankingsystem.repositories.CardReposytory;
 import br.com.kleryton.bankingsystem.requestDto.AccountRequestDto;
 import br.com.kleryton.bankingsystem.responseDto.AccountResponseDto;
+import br.com.kleryton.bankingsystem.services.exceptions.ConflictDeDadosException;
 
 @Service
 public class AccountService {
@@ -31,12 +32,11 @@ public class AccountService {
 
 		AccountModel accountModel = convertDtoToModel(accountRequestDto);
 
-		// TODO costomizar exception 
 		// Verifica se accountCode ou RegisteId já está em uso no banco
 		try {
 			accountRepository.save(accountModel);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityViolationException("accoundCode or RegisterId is already in use!");
+			throw new ConflictDeDadosException("accoundCode or RegisterId is already in use!");
 		}
 		return accountModel;
 	}
