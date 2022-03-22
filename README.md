@@ -45,10 +45,10 @@ spring.jpa.show-sql=true
 
 ### funcionalidades
 - [x] Gerenciamento de banco
-- [ ] Gerenciamento de accounts
+- [X] Gerenciamento de accounts
 - [x] Gerenciamento de cards
 - [x] Gerenciamento de typeCards
-- [ ] Validações
+- [X] Validações
 - [x] Documentação Swagger
 - [x] Tratamento de exceções
 - [ ] Deploy project on AWS
