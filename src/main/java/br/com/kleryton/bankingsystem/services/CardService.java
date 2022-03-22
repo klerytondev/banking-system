@@ -96,8 +96,6 @@ public class CardService {
 		cardModelOptional.get().setDigitCode(cardRequestDto.getDigitCode());
 		cardModelOptional.get().setFlag(cardRequestDto.getFlag());
 		cardModelOptional.get().setLimitBalance(cardRequestDto.getLimitBalance());
-//		cardModelOptional.get().setTypeCard(cardRequestDto.getTypeCard());
-//		cardModelOptional.get().setNumber(cardRequestDto.getNumber());
 		
 		//Salva o card no banco de dados
 		cardReposytory.save(cardModelOptional.get());
@@ -118,7 +116,7 @@ public class CardService {
 	}
 	
 	@Transactional
-	private AccountModel getAccountModelById(Long id) {
+	protected AccountModel getAccountModelById(Long id) {
 		
 		//Verifica se existe uma account no banco de dados 
 		Optional<AccountModel> accountOptional = accountRepository.findById(id);

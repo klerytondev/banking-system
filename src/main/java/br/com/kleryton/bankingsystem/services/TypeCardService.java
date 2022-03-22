@@ -37,13 +37,11 @@ public class TypeCardService {
 
 		TypeCardModel typeCardModelPersisted = typeCardRepository.save(convertDtoToModel(typeCardRequestDto));
 		return convertModelToDTO(typeCardModelPersisted);
-
 	}
-
 	// Read All com List
 	@Transactional
 	public List<TypeCardResponseDto> getAll() {
-
+		
 		List<TypeCardResponseDto> ListTypeCards = new ArrayList<>();
 		for (TypeCardModel type : typeCardRepository.findAll()) {
 			ListTypeCards.add(convertModelToDTO(type));

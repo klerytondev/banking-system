@@ -26,7 +26,6 @@ import br.com.kleryton.bankingsystem.services.AccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-//TODO Refatorar
 
 @RestController
 @RequestMapping(value="/v1/system-banking")
