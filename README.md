@@ -45,17 +45,17 @@ spring.jpa.show-sql=true
 
 ### funcionalidades
 - [x] Gerenciamento de banco
-- [X] Gerenciamento de accounts
+- [x] Gerenciamento de accounts
 - [x] Gerenciamento de cards
 - [x] Gerenciamento de typeCards
 - [X] Validações
 - [x] Documentação Swagger
 - [x] Tratamento de exceções
-- [ ] Deploy project on AWS
+- [x] Deploy project on AWS
 
 ### Status do Projeto
 <h4 align="left"> 
-	🚧  React Select 🚀 Em construção...  🚧
+	🚧  React Select 🚀 ready  🚧
 </h4>
 
 ### Autor
