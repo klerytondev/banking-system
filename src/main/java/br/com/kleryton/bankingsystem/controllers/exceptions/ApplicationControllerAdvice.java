@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -59,6 +60,23 @@ public class ApplicationControllerAdvice {
 		err.setStatus(status.value());
 		err.setError("A solicitação não pôde ser concluída devido a um conflito com o estado atual do recurso de destino!");
 		err.setMessage(e.getMessage());
+		err.setPath(request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	//TODO 
+	
+	/*
+	 * Handler para tratar Status 400, geradas pelas validações do hiberdate nos RequestsDtos 
+	 */
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<StandarError> dataIntegrity(MethodArgumentNotValidException e, HttpServletRequest request) {
+		StandarError err = new StandarError();
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		err.setTimestamp(Instant.now());
+		err.setStatus(status.value());
+		err.setError("null field");
+		err.setMessage(e.getBindingResult().getFieldError().getDefaultMessage());
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
