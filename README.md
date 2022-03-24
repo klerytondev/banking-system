@@ -1,4 +1,4 @@
-# System Banking
+# Banking System
 API Restful genérica que realiza alguns serviços bancários.
 
 # Funcionalidades
