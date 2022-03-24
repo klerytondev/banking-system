@@ -8,7 +8,7 @@ API Restful genérica que realiza alguns serviços bancários.
 4. Gerenciamento de typeCards (CRUD completo)
 
 # Documentação
-*  A documentação da API foi gerada com Swagger e está disponível em ``` http://localhost:8080/banco-api/swagger-ui.html```
+*  A documentação da API foi gerada com Swagger e está disponível em ``` http://bankingsystem-env.eba-8whmar3w.us-east-1.elasticbeanstalk.com/swagger-ui.html```
 
 # Pré-requisitos
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
