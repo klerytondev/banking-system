@@ -115,7 +115,7 @@ public class CardService {
 
 		// Verifica se existe card com o id passado no banco de dados
 		Optional<CardModel> cardModelOptional = cardReposytory.findById(id);
-		cardModelOptional.orElseThrow(() -> new RuntimeException("Card not found."));
+		cardModelOptional.orElseThrow(() -> new ObjetoNaoEncontradoException("Card not found."));
 		// Caso exista, o card é deletado
 		cardReposytory.delete(cardModelOptional.get());
 		return true;
