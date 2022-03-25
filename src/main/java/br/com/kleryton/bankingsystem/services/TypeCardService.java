@@ -67,8 +67,6 @@ public class TypeCardService {
 		Optional<TypeCardModel> typeCarModelOptional = typeCardRepository.findByName(name);
 		typeCarModelOptional.orElseThrow(() -> new ObjetoNaoEncontradoException("Type Card not found"));
 
-		// TODO validação pra nao deixar entrar duplicado
-		// java.sql.SQLIntegrityConstraintViolationException
 		typeCarModelOptional.get().setName(typeCardRequestDto.getName());
 		return convertModelToDTO(typeCardRepository.save(typeCarModelOptional.get()));
 	}
@@ -77,12 +75,11 @@ public class TypeCardService {
 	@Transactional
 	public String deleteByName(String name) {
 
-		Optional<TypeCardModel> typeCardModel = typeCardRepository.findByName(name);
-		typeCardModel.orElseThrow(() -> new ObjetoNaoEncontradoException("Type Card not found"));
+		Optional<TypeCardModel> typeCardModelOptional = typeCardRepository.findByName(name);
+		typeCardModelOptional.orElseThrow(() -> new ObjetoNaoEncontradoException("Type Card not found"));
 
-		typeCardRepository.deleteById(typeCardModel.get().getId());
+		typeCardRepository.deleteById(typeCardModelOptional.get().getId());
 		return "TypeCard deleted successfully.";
-
 	}
 
 	// Converters

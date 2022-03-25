@@ -63,7 +63,7 @@ public class TypeCardController {
 	@ApiOperation(value="Deleta um tipo de cartão de acordo com o id passado")
 	@DeleteMapping("/type_card/delete")
 	public ResponseEntity<Object> deleteByName(@RequestParam("name") String name) {
-		return ResponseEntity.ok().body(typeCardService.deleteByName(name));
+		return ResponseEntity.status(HttpStatus.OK).body(typeCardService.deleteByName(name));
 	}
 
 }
