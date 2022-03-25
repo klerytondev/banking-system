@@ -69,7 +69,7 @@ public class AccountController {
 	// Update by id
 	@ApiOperation(value="Atualiza uma conta de acordo com o id passado")
 	@PutMapping("/account/update")
-	public ResponseEntity<AccountResponseDto> updateAccountModel(@PathParam("id") Long id,
+	public ResponseEntity<AccountResponseDto> updateAccountModel(@RequestParam("id") Long id,
 			@RequestBody @Valid AccountRequestDto accountRequestDto) {
 		AccountResponseDto accountResponseDto = accountService.updateAcoount(id, accountRequestDto);
 		return ResponseEntity.status(HttpStatus.OK).body(accountResponseDto);

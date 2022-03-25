@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kleryton.bankingsystem.requestDto.TypeCardRequestDto;
@@ -54,7 +55,7 @@ public class TypeCardController {
 	//Update By Name
 	@ApiOperation(value="Atualiza um tipo de cartão de acordo com o id passado")
 	@PutMapping("/type_card/update")
-	public ResponseEntity<TypeCardResponseDto> updateByName(@PathParam("name") String name,
+	public ResponseEntity<TypeCardResponseDto> updateByName(@RequestParam("name") String name,
 			@RequestBody TypeCardRequestDto requestDTO) {
 		TypeCardResponseDto typeCardResponseDto = typeCardService.updateByName(name, requestDTO);
 		return ResponseEntity.ok().body(typeCardResponseDto);

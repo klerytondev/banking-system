@@ -44,7 +44,6 @@ public class CardController {
 		AccountModel accountModel = cardService.createCardAccount(cardRequestDto, idAccount);
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountModel);
 	}
-//TODO corrigir erro
 
 	//Read All
 	@ApiOperation(value="Retorna todos os cartões salvos em uma conta")
