@@ -2,8 +2,6 @@ package br.com.kleryton.bankingsystem.controllers;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,7 +62,7 @@ public class TypeCardController {
 	//Delete One by Name
 	@ApiOperation(value="Deleta um tipo de cartão de acordo com o id passado")
 	@DeleteMapping("/type_card/delete")
-	public ResponseEntity<String> deleteByName(@PathParam("name") String name) {
+	public ResponseEntity<String> deleteByName(@RequestParam("name") String name) {
 		typeCardService.deleteByName(name);
 		return ResponseEntity.ok().body(name + " successfully deleted");
 	}
