@@ -75,12 +75,13 @@ public class TypeCardService {
 
 	// Delete By Name
 	@Transactional
-	public void deleteByName(String name) {
+	public String deleteByName(String name) {
 
 		Optional<TypeCardModel> typeCardModel = typeCardRepository.findByName(name);
 		typeCardModel.orElseThrow(() -> new ObjetoNaoEncontradoException("Type Card not found"));
 
 		typeCardRepository.deleteById(typeCardModel.get().getId());
+		return "TypeCard deleted successfully.";
 
 	}
 
