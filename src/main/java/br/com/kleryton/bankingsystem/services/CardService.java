@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.kleryton.bankingsystem.models.AccountModel;
@@ -16,6 +17,7 @@ import br.com.kleryton.bankingsystem.repositories.CardReposytory;
 import br.com.kleryton.bankingsystem.repositories.TypeCardRepository;
 import br.com.kleryton.bankingsystem.requestDto.CardRequestDto;
 import br.com.kleryton.bankingsystem.responseDto.CardResponseDto;
+import br.com.kleryton.bankingsystem.services.exceptions.ConflictDeDadosException;
 import br.com.kleryton.bankingsystem.services.exceptions.ObjetoNaoEncontradoException;
 
 @Service
@@ -47,21 +49,25 @@ public class CardService {
 		Optional<TypeCardModel> typeCarModelOptional = typeCardRepository
 				.findByName(cardRequestDto.getTypeCard().getName());
 		typeCarModelOptional.orElseThrow(() -> new ObjetoNaoEncontradoException("Type Card not found."));
-
+		
 		// Seta o typeCard em um cardRequestDto
 		cardRequestDto.setTypeCard(typeCarModelOptional.get());
 
 		// Converte o cardRequestDto em um CardModel
 		CardModel cardModelPersist = new CardModel();
 		cardModelPersist = convertDtoToModel(cardRequestDto);
-
+		
 		// Seta um card em account
 		accountOptional.get().setCardList(cardModelPersist);
 
 		AccountModel accountModelPersist;
 
+		// Verifica se o card já está em uso no banco
+		try {
 		accountModelPersist = accountRepository.save(accountOptional.get());
-
+		} catch (DataIntegrityViolationException e) {
+			throw new ConflictDeDadosException("Card is already in use!");
+		}
 		return accountModelPersist;
 	}
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kleryton.bankingsystem.models.AccountModel;
@@ -67,7 +68,7 @@ public class CardController {
 	//Update By id
 	@ApiOperation(value="Atualiza um cartão de uma conta de acordo com o id(cartão) passado")
 	@PutMapping("/cards/update")
-	public ResponseEntity<CardModel> updateCardModel(@PathParam("id") Long id,
+	public ResponseEntity<CardModel> updateCardModel(@RequestParam("id") Long id,
 			@RequestBody @Valid CardRequestDto cardRequestDto) {
 		CardModel cardModel = cardService.updateCard(id, cardRequestDto);
 		return ResponseEntity.status(HttpStatus.OK).body(cardModel);
