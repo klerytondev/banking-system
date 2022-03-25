@@ -3,7 +3,6 @@ package br.com.kleryton.bankingsystem.controllers;
 import java.util.Set;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,7 +55,7 @@ public class CardController {
 	//Delete One By id
 	@ApiOperation(value="Deleta um cartão de uma conta de acordo com o id(cartão) passado")
 	@DeleteMapping("/cards/delete")
-	public ResponseEntity<Object> DeletecardModel(@PathParam("id") Long id) {
+	public ResponseEntity<Object> DeletecardModel(@RequestParam("id") Long id) {
 		Boolean cardDelete = cardService.deleteCard(id);
 		if (cardDelete == true) {
 			return ResponseEntity.status(HttpStatus.OK).body("Card deleted successfully");
