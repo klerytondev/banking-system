@@ -64,7 +64,7 @@ public class TypeCardController {
 	@DeleteMapping("/type_card/delete")
 	public ResponseEntity<String> deleteByName(@RequestParam("name") String name) {
 		typeCardService.deleteByName(name);
-		return ResponseEntity.ok().body(name + " successfully deleted");
+		return ResponseEntity.ok().body(name + ", successfully deleted");
 	}
 
 }
