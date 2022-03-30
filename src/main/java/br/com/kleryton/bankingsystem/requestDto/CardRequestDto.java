@@ -19,7 +19,6 @@ public class CardRequestDto {
 	@NotEmpty(message = "{campo.namecard.nulo}")
 	private String nameCard;
 
-//TODO verificar validação
 	private CardFlag flag;
 	
 	private TypeCardModel typeCard;

@@ -6,6 +6,7 @@ import java.util.Set;
 import br.com.kleryton.bankingsystem.models.AccountModel;
 import br.com.kleryton.bankingsystem.models.CardModel;
 
+//Transferir atributos de resposta enviadas ao client
 public class AccountResponseDto {
 
 	private Long id;
@@ -27,7 +28,6 @@ public class AccountResponseDto {
 		this.verificationDigital = accountModel.getVerificationDigital();
 		this.registerId = accountModel.getRegisterId();
 
-		//TODO verificar getters e setter e contrutores 
 	}
 
 	public void setId(Long id) {

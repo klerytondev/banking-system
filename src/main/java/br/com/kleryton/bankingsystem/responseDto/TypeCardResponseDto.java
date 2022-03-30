@@ -2,14 +2,16 @@ package br.com.kleryton.bankingsystem.responseDto;
 
 import java.util.Objects;
 
+import br.com.kleryton.bankingsystem.models.TypeCardModel;
+
 public class TypeCardResponseDto {
 
 	private Long id;
 	private String name;
 
-	public TypeCardResponseDto(Long id, String name) {
-		this.id = id;
-		this.name = name;
+	public TypeCardResponseDto(TypeCardModel typeCardModel) {
+		this.id = typeCardModel.getId();
+		this.name = typeCardModel.getName();
 	}
 
 	public TypeCardResponseDto() {

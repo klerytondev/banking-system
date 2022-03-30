@@ -28,7 +28,6 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping(value="/v1/system-banking")
 public class CardController {
 
-	//TODO verificar injeções necessárias
 	@Autowired
 	AccountService accountService;
 
@@ -36,7 +35,7 @@ public class CardController {
 	CardService cardService;
 
 	//Create Card
-	@ApiOperation(value="Salva um novo cartão no banco de dados")
+	@ApiOperation(value="Salva um novo cartão em uma account")
 	@PostMapping("/cards/{idAccount}")
 	public ResponseEntity<AccountModel> createCard(@RequestBody @Valid CardRequestDto cardRequestDto,
 			@PathVariable Long idAccount) {

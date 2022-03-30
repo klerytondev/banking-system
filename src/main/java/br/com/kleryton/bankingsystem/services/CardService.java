@@ -23,8 +23,6 @@ import br.com.kleryton.bankingsystem.services.exceptions.ObjetoNaoEncontradoExce
 @Service
 public class CardService {
 
-	
-	//TODO verificar necessidade de injeções
 	@Autowired
 	CardReposytory cardReposytory;
 
@@ -62,7 +60,7 @@ public class CardService {
 
 		AccountModel accountModelPersist;
 
-		// Verifica se o card já está em uso no banco
+		// Verifica se o card já está em uso na account
 		try {
 		accountModelPersist = accountRepository.save(accountOptional.get());
 		} catch (DataIntegrityViolationException e) {
@@ -83,6 +81,7 @@ public class CardService {
 		}
 		// Seta cards da account passada em uma lista de cards
 		Set<CardModel> cards = accountModel.getCard();
+		//Verifica se account está vazia 
 		if (cards.isEmpty())
 			throw new ObjetoNaoEncontradoException("Card not found by account.");
 		return cards;
@@ -96,7 +95,7 @@ public class CardService {
 		Optional<CardModel> cardModelOptional = cardReposytory.findById(id);
 		cardModelOptional.orElseThrow(() -> new ObjetoNaoEncontradoException("Card not found."));
 		
-		//Não é possivel alterar o number e nem o typeCard(regra de negócio)
+		//Não é possivel alterar o number e nem o typeCard
 		//Atualiza os campos da card existentes
 		cardModelOptional.get().setNameCard(cardRequestDto.getNameCard());
 		cardModelOptional.get().setDigitCode(cardRequestDto.getDigitCode());
@@ -144,7 +143,7 @@ public class CardService {
 		return cardResponseDto;
 	}
 
-	// Coverte response DTO em um card
+	// Coverte request DTO em um card
 	private CardModel convertDtoToModel(CardRequestDto cardRequestDto) {
 
 		CardModel cardModel = new CardModel();

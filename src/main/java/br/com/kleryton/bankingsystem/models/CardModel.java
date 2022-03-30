@@ -45,6 +45,7 @@ public class CardModel implements Serializable {
 	private double limitBalance;
 		
 	@ManyToOne(cascade = CascadeType.REFRESH)
+	//Marca esta coluna como uma junção para a associação de entidades
     @JoinColumn(name = "card_type_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_card_type"))
 	private TypeCardModel typeCardModel;
 

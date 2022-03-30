@@ -95,7 +95,7 @@ public class TypeCardService {
 		return typeCardResponseDto;
 	}
 
-	// Coverte response DTO em um typeCard
+	// Coverte resquest DTO em um typeCard
 
 	private TypeCardModel convertDtoToModel(TypeCardRequestDto typeCardRequestDto) {
 

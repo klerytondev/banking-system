@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
 
+//@index para melhor o desempenho de consulta o banco
 @Entity
 @Table(name = "TB_TYPE_CARD", indexes = {
         @Index(name = "type_card_name_index", columnList = "name", unique = true)})
@@ -19,7 +20,6 @@ public class TypeCardModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
 	
     @Column(name = "name")
 	private String name;

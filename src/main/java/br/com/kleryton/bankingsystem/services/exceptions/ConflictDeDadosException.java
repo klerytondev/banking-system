@@ -1,7 +1,7 @@
 package br.com.kleryton.bankingsystem.services.exceptions;
 
 /*
- * Handler para tratar Status 409, caso a solicitação não pôde ser concluída devido a um 
+ * Trata Status 409, caso a solicitação não possa ser concluída devido a um 
  * conflito com o estado atual do recurso de destino
  */
 public class ConflictDeDadosException extends RuntimeException {

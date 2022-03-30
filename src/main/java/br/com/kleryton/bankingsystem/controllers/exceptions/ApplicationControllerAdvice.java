@@ -14,6 +14,7 @@ import br.com.kleryton.bankingsystem.services.exceptions.ConflictDeDadosExceptio
 import br.com.kleryton.bankingsystem.services.exceptions.IntegridadeDeDadosException;
 import br.com.kleryton.bankingsystem.services.exceptions.ObjetoNaoEncontradoException;
 
+//Anotação que permite tratar exceções em toda a aplicação de forma global
 @ControllerAdvice
 public class ApplicationControllerAdvice {
 
@@ -53,7 +54,7 @@ public class ApplicationControllerAdvice {
 	 * conflito com o estado atual do recurso de destino
 	 */
 	@ExceptionHandler(ConflictDeDadosException.class)
-	public ResponseEntity<StandarError> dataIntegrity(ConflictDeDadosException e, HttpServletRequest request) {
+	public ResponseEntity<StandarError> ConflictDados(ConflictDeDadosException e, HttpServletRequest request) {
 		StandarError err = new StandarError();
 		HttpStatus status = HttpStatus.CONFLICT;
 		err.setTimestamp(Instant.now());
@@ -64,13 +65,11 @@ public class ApplicationControllerAdvice {
 		return ResponseEntity.status(status).body(err);
 	}
 	
-	//TODO 
-	
 	/*
-	 * Handler para tratar Status 400, geradas pelas validações do hiberdate nos RequestsDtos 
+	 * Handler para tratar Status 400, geradas pelas validações dos objetos da bean validation nos RequestsDtos 
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<StandarError> dataIntegrity(MethodArgumentNotValidException e, HttpServletRequest request) {
+	public ResponseEntity<StandarError> ArgumentNotValid(MethodArgumentNotValidException e, HttpServletRequest request) {
 		StandarError err = new StandarError();
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		err.setTimestamp(Instant.now());

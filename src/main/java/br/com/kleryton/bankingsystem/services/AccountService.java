@@ -131,7 +131,7 @@ public class AccountService {
 		return accountResponseDto;
 	}
 
-	// Coverte um response DTO em account
+	// Coverte um request DTO em account
 	public AccountModel convertDtoToModel(AccountRequestDto accountRequestDto) {
 
 		AccountModel accountModel = new AccountModel();

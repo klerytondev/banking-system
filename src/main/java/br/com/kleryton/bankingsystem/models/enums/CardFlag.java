@@ -6,6 +6,7 @@ public enum CardFlag {
 
 	MASTERCARD("mastercard"), VISA("visa"), ELO("elo");
 	
+	//@regex validar os possiveis tipos de bandeiras
 	@Pattern(regexp = "MASTERCARD|VISA|ELO")
 	private String flag;
 

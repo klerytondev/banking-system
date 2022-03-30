@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+//informa que esta classe é uma entidade
 @Entity
 @Table(name = "TB_ACCOUNT")
 public class AccountModel implements Serializable {

@@ -30,6 +30,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping(value="/v1/system-banking")
 @Api(value="Banking System - API Restful")
+//Otimiza o acesso a API
 @CrossOrigin(origins="*")
 public class AccountController {
 

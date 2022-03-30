@@ -11,8 +11,11 @@ import org.hibernate.validator.constraints.br.CPF;
 import br.com.kleryton.bankingsystem.models.AccountModel;
 import br.com.kleryton.bankingsystem.models.CardModel;
 
+//Transferir e manipular atributos recebidos por parametro do client
 public class AccountRequestDto {
-
+	
+	//Bean Validation para validação de entrada dos objetos
+	//propriedades baseadas em chave=valor
 	@NotEmpty(message = "{campo.nameowner.obrigatorio}")
 	@Length(max = 50, message = "{campo.nameowner.caracteres}")
 	private String nameOwner;

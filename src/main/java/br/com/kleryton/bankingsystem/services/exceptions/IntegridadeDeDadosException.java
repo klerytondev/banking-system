@@ -1,5 +1,8 @@
 package br.com.kleryton.bankingsystem.services.exceptions;
 
+/*
+ *  Trata Status 400, caso algum atributo não seja passado no corpo
+ */
 public class IntegridadeDeDadosException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 

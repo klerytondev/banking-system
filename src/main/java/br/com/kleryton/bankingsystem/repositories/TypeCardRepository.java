@@ -10,7 +10,7 @@ import br.com.kleryton.bankingsystem.models.TypeCardModel;
 @Repository
 public interface TypeCardRepository extends JpaRepository<TypeCardModel, Long>{
 	
+	//Metodo de consulta ao banco de dados pelo name
 	Optional<TypeCardModel> findByName(String name);
-	
 
 }

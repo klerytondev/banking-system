@@ -9,7 +9,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 /*
-* Essa classe de configuração é responsável por permitir que o arquivo 
+* Responsável por permitir que o arquivo 
 * message.properties possa ser utilizado. Ela configura o nome do arquivo
 * e o local geográfico onde essse arquivo será usado.
 */
