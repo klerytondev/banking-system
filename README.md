@@ -40,9 +40,8 @@ spring.jpa.show-sql=true
 2. Maven 3
 3. MySQL Database
 4. Spring Boot 2.6.4
-5. JWT
-6. Swagger 
-7. CI/CD CodePipeline - AWS
+5. Swagger 
+6. CI/CD CodePipeline - AWS
 
 ### funcionalidades
 - [x] Gerenciamento de banco
