@@ -55,7 +55,7 @@ spring.jpa.show-sql=true
 
 ### Status do Projeto
 <h4 align="left"> 
-	🚧  React Select 🚀 ready  🚧
+	🚧  React Select 🚀 in production  🚧
 </h4>
 
 ### Autor
